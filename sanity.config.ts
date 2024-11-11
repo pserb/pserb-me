@@ -13,6 +13,7 @@ import { structureTool } from "sanity/structure";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
+import { resolve } from "./sanity/presentation/resolve";
 
 export const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || "http://localhost:3000";
 
@@ -28,6 +29,7 @@ export default defineConfig({
 		// https://www.sanity.io/docs/the-vision-plugin
 		visionTool({ defaultApiVersion: apiVersion }),
 		presentationTool({
+			resolve,
 			// Required: set the base URL to the preview location in the front end
 			previewUrl: {
 				previewMode: {

@@ -7,5 +7,5 @@ export const client = createClient({
 	dataset,
 	apiVersion: "vX",
 	useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
-	stega: { studioUrl: process.env.SANITY_STUDIO_PREVIEW_URL || "http://localhost:3000" },
+	stega: { studioUrl: "/studio" },
 });
