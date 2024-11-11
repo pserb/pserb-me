@@ -7,5 +7,5 @@ export const client = createClient({
 	dataset,
 	apiVersion: "vX",
 	useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
-	stega: { studioUrl: "/studio" },
+	stega: { studioUrl: "/studio" }, // IMPORTANT: this has to be /studio for vercel toolbar "open in studio" to work
 });

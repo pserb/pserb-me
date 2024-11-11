@@ -8,6 +8,8 @@ import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { presentationTool } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
+import { pageStructure, singletonPlugin } from "@/sanity/plugins/singleton";
+import { homeType } from "@/sanity/schemaTypes/homeType";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "./sanity/env";
@@ -24,7 +26,9 @@ export default defineConfig({
 	// Add and edit the content schema in the './sanity/schemaTypes' folder
 	schema,
 	plugins: [
-		structureTool({ structure }),
+		structureTool({ structure: pageStructure([homeType]) }),
+		// structureTool({ structure }),
+		singletonPlugin([homeType.name]),
 		// Vision is for querying with GROQ from inside the Studio
 		// https://www.sanity.io/docs/the-vision-plugin
 		visionTool({ defaultApiVersion: apiVersion }),
