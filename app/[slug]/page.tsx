@@ -13,7 +13,7 @@ const urlFor = (source: SanityImageSource) => (projectId && dataset ? imageUrlBu
 
 export default async function PostPage(props: { params: Promise<{ slug: string }> }) {
 	const params = await props.params;
-	const { data } = await sanityFetch({ query: POST_QUERY, params: {} });
+	const { data } = await sanityFetch({ query: POST_QUERY, params: params });
 	const post = data as Post;
 	const postImageUrl = post.image ? urlFor(post.image)?.width(550).height(310).url() : null;
 
