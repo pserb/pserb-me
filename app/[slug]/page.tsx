@@ -2,6 +2,7 @@ import { PortableText } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import Link from "next/link";
 import { Post } from "@/sanity.types";
 
@@ -10,14 +11,13 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 const { projectId, dataset } = client.config();
 const urlFor = (source: SanityImageSource) => (projectId && dataset ? imageUrlBuilder({ projectId, dataset }).image(source) : null);
 
-const options = { next: { revalidate: 30 } };
-
 export default async function PostPage(props: { params: Promise<{ slug: string }> }) {
-    const params = await props.params;
-    const post = await client.fetch<Post>(POST_QUERY, params, options);
-    const postImageUrl = post.image ? urlFor(post.image)?.width(550).height(310).url() : null;
+	const params = await props.params;
+	const { data } = await sanityFetch({ query: POST_QUERY, params: {} });
+	const post = data as Post;
+	const postImageUrl = post.image ? urlFor(post.image)?.width(550).height(310).url() : null;
 
-    return (
+	return (
 		<main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
 			<Link href="/" className="hover:underline">
 				← Back to posts
