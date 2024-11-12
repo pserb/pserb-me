@@ -68,6 +68,41 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type BlockContent = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "figcaption";
+  listItem?: "bullet";
+  markDefs?: Array<{
+    href?: string;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+} | {
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+  };
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+  height?: number;
+  width?: number;
+  _type: "image";
+  _key: string;
+} | {
+  _key: string;
+} & Code>;
+
 export type Project = {
   _id: string;
   _type: "project";
@@ -76,46 +111,22 @@ export type Project = {
   _rev: string;
   title: string;
   slug: Slug;
-  body?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  body?: BlockContent;
 };
 
-export type Post = {
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
+};
+
+export type Projects = {
   _id: string;
-  _type: "post";
+  _type: "projects";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title: string;
-  slug: Slug;
-  publishedAt: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
   body?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -134,6 +145,24 @@ export type Post = {
     _type: "block";
     _key: string;
   }>;
+  projects?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "project";
+  }>;
+};
+
+export type About = {
+  _id: string;
+  _type: "about";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  cta?: string;
+  title: string;
+  body?: BlockContent;
 };
 
 export type SanityImageCrop = {
@@ -193,18 +222,13 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
-};
-
 export type Home = {
   _id: string;
   _type: "home";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  cta?: string;
   title: string;
   body?: Array<{
     children?: Array<{
@@ -224,21 +248,57 @@ export type Home = {
     _type: "block";
     _key: string;
   }>;
-  projects?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "project";
-  }>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Project | Post | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | Home;
+export type Code = {
+  _type: "code";
+  language?: string;
+  filename?: string;
+  code?: string;
+  highlightedLines?: Array<number>;
+};
+
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | Project | Slug | Projects | About | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Home | Code;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./app/page.tsx
+// Source: ./app/(main)/page.tsx
 // Variable: HOME_QUERY
-// Query: *[_type == "home"][0]{  title,  body,  projects[]->{    _type,    _id,    title,    slug,    body  }}
+// Query: *[_type == "home"][0]{  cta,  title,  body,}
 export type HOME_QUERYResult = {
+  cta: string | null;
+  title: string;
+  body: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+} | null;
+
+// Source: ./app/(main)/about/page.tsx
+// Variable: ABOUT_QUERY
+// Query: *[_type == "about"][0]{    cta,    title,    body}
+export type ABOUT_QUERYResult = {
+  cta: string | null;
+  title: string;
+  body: BlockContent | null;
+} | null;
+
+// Source: ./app/(main)/projects/page.tsx
+// Variable: PROJECTS_QUERY
+// Query: *[_type == "projects"][0]{  title,  body,  projects[]->{    _type,    _id,    title,    slug,    body  }}
+export type PROJECTS_QUERYResult = {
   title: string;
   body: Array<{
     children?: Array<{
@@ -263,86 +323,31 @@ export type HOME_QUERYResult = {
     _id: string;
     title: string;
     slug: Slug;
-    body: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
+    body: BlockContent | null;
   }> | null;
 } | null;
 
-// Source: ./app/posts/page.tsx
-// Variable: POSTS_QUERY
-// Query: *[  _type == "post"  && defined(slug.current)]|order(publishedAt desc)[0...12]{_id, title, slug, publishedAt}
-export type POSTS_QUERYResult = Array<{
+// Source: ./app/(main)/projects/[slug]/page.tsx
+// Variable: PROJECT_QUERY
+// Query: *[_type == "project" && slug.current == $slug][0]
+export type PROJECT_QUERYResult = {
   _id: string;
-  title: string;
-  slug: Slug;
-  publishedAt: string;
-}>;
-
-// Source: ./app/posts/[slug]/page.tsx
-// Variable: POST_QUERY
-// Query: *[_type == "post" && slug.current == $slug][0]
-export type POST_QUERYResult = {
-  _id: string;
-  _type: "post";
+  _type: "project";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title: string;
   slug: Slug;
-  publishedAt: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  body?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  body?: BlockContent;
 } | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"home\"][0]{\n  title,\n  body,\n  projects[]->{\n    _type,\n    _id,\n    title,\n    slug,\n    body\n  }\n}": HOME_QUERYResult;
-    "*[\n  _type == \"post\"\n  && defined(slug.current)\n]|order(publishedAt desc)[0...12]{_id, title, slug, publishedAt}": POSTS_QUERYResult;
-    "*[_type == \"post\" && slug.current == $slug][0]": POST_QUERYResult;
+    "*[_type == \"home\"][0]{\n  cta,\n  title,\n  body,\n}": HOME_QUERYResult;
+    "*[_type == \"about\"][0]{\n    cta,\n    title,\n    body\n}": ABOUT_QUERYResult;
+    "*[_type == \"projects\"][0]{\n  title,\n  body,\n  projects[]->{\n    _type,\n    _id,\n    title,\n    slug,\n    body\n  }\n}": PROJECTS_QUERYResult;
+    "*[_type == \"project\" && slug.current == $slug][0]": PROJECT_QUERYResult;
   }
 }

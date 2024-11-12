@@ -8,19 +8,21 @@ export const homeType = defineType({
     icon: HomeIcon,
     fields: [
         defineField({
-        name: 'title',
-        type: 'string',
-        validation: (rule) => rule.required(),
+            title: "cta",
+            name: "cta",
+            type: "string",
         }),
         defineField({
-        name: 'body',
-        type: 'array',
-        of: [{ type: 'block' }],
+            title: 'Title',
+            name: 'title',
+            type: 'string',
+            validation: (rule) => rule.required(),
         }),
         defineField({
-        name: 'projects',
-        type: 'array',
-        of: [defineArrayMember({ type: 'reference', to: [{ type: 'project' }] })],
+            title: 'Body',
+            name: 'body',
+            type: 'array',
+            of: [{ type: 'block' }],
         }),
     ],
 })

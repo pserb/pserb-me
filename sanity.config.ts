@@ -14,8 +14,11 @@ import { homeType } from "@/sanity/schemaTypes/homeType";
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
-import { structure } from "./sanity/structure";
 import { resolve } from "./sanity/presentation/resolve";
+import { projectsType } from "./sanity/schemaTypes/projectsType";
+import { codeInput } from "@sanity/code-input";
+import { muxInput } from "sanity-plugin-mux-input";
+import { aboutType } from "./sanity/schemaTypes/aboutType";
 
 export const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || "http://localhost:3000";
 
@@ -26,7 +29,7 @@ export default defineConfig({
 	// Add and edit the content schema in the './sanity/schemaTypes' folder
 	schema,
 	plugins: [
-		structureTool({ structure: pageStructure([homeType]) }),
+		structureTool({ structure: pageStructure([homeType, aboutType, projectsType]) }),
 		// structureTool({ structure }),
 		singletonPlugin([homeType.name]),
 		// Vision is for querying with GROQ from inside the Studio
@@ -41,5 +44,6 @@ export default defineConfig({
 				},
 			},
 		}),
+		codeInput(),
 	],
 });
