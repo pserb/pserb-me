@@ -9,6 +9,8 @@ import { ModeToggle } from "@/components/mode-toggle";
 import Navbar from "@/components/navbar";
 
 const geist = Geist({ subsets: ["latin"], adjustFontFallback: false });
+const geistMono = Geist_Mono({ subsets: ["latin"], adjustFontFallback: false, variable: "--geistMono" });
+
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -22,7 +24,7 @@ export default async function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className={geist.className}>
+			<body className={`${geist.className} ${geistMono.variable}`}>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<Navbar />
 					{children}
