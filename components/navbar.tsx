@@ -27,12 +27,12 @@ export default function Navbar() {
         <div className="fixed top-0 left-0 z-50 flex justify-center pt-6 w-screen">
             <NavigationMenu className="py-4 w-full">
                 <motion.div
-                    className="mx-auto max-w-3xl w-[calc(100%-2rem)] flex items-center h-14 px-6 rounded-md backdrop-blur supports-[backdrop-filter]:bg-background/60 border"
+                    className="mx-auto max-w-3xl w-[calc(100%-2rem)] flex items-center h-14 md:px-6 rounded-md backdrop-blur supports-[backdrop-filter]:bg-background/60 border"
                     variants={container}
                     initial="hidden"
                     animate="visible"
                 >
-                    <NavigationMenuList className="pr-8">
+                    <NavigationMenuList className="md:pr-8">
                         <motion.div variants={item}>
                             <NavigationMenuItem>
                                 <Link href="/" legacyBehavior passHref>
@@ -43,7 +43,7 @@ export default function Navbar() {
                             </NavigationMenuItem>
                         </motion.div>
                     </NavigationMenuList>
-                    <NavigationMenuList className="pr-8">
+                    <NavigationMenuList className="md:pr-8">
                         <motion.div variants={item}>
                             <NavigationMenuItem>
                                 <Link href="/projects" legacyBehavior passHref>
@@ -54,7 +54,7 @@ export default function Navbar() {
                             </NavigationMenuItem>
                         </motion.div>
                     </NavigationMenuList>
-                    <NavigationMenuList className="pr-8">
+                    <NavigationMenuList className="md:pr-8">
                         <motion.div variants={item}>
                             <NavigationMenuItem>
                                 <Link href="/about" legacyBehavior passHref>
