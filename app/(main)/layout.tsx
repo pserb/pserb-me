@@ -3,12 +3,12 @@ import "./globals.css";
 import { SanityLive } from "@/sanity/lib/live";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import Navbar from "@/components/navbar";
 
-const geist = Geist({ subsets: ['latin'] })
+const geist = Geist({ subsets: ["latin"], adjustFontFallback: false });
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -21,14 +21,9 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body className={geist.className}>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<Navbar />
 					{children}
 					<SanityLive />
