@@ -59,7 +59,7 @@ export default function HomePageComponent({ cta, title, body }: HomePageComponen
 				<motion.div variants={item}>
 					<div className="pb-8 -mt-2">
 						<video className="rounded-lg" autoPlay loop muted playsInline preload="auto" aria-hidden="true">
-							<source src="/hero-cfps-v4.webm" type="video/webm" />
+							<source src="/hero-c-v11.webm" type="video/webm" />
 						</video>
 					</div>
 				</motion.div>
