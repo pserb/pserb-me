@@ -11,16 +11,23 @@ async function fetchProjectData(slug: string): Promise<PROJECT_QUERYResult> {
 	return data as PROJECT_QUERYResult;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-	const project = await fetchProjectData(params.slug);
+type Params = {
+	params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+	const { slug } = await params;
+	const project = await fetchProjectData(slug);
 
 	return {
 		title: `${project?.title} | Paul Serbanescu`,
+		// You can add more metadata fields here as needed
 	};
 }
 
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
-	const project = await fetchProjectData(params.slug);
+export default async function ProjectPage({ params }: Params) {
+	const { slug } = await params;
+	const project = await fetchProjectData(slug);
 
 	return <ProjectPageComponent project={project} />;
 }
