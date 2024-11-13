@@ -24,7 +24,7 @@ export default function Navbar() {
     }
 
     return (
-        <div className="fixed top-0 left-0 z-50 flex justify-center pt-6 w-screen">
+        <div className="fixed top-0 left-0 z-50 flex justify-center mt-6 w-screen h-14">
             <NavigationMenu className="py-4 w-full">
                 <motion.div
                     className="mx-auto max-w-3xl w-[calc(100%-2rem)] flex items-center h-14 md:px-6 rounded-md backdrop-blur supports-[backdrop-filter]:bg-background/60 border"
