@@ -86,31 +86,33 @@ export default function ProjectsPageComponent({ projects }: { projects: PROJECTS
 				<motion.div variants={item}>
 					<h1 className="text-4xl font-bold mb-8">{projects?.title}</h1>
 				</motion.div>
-				<motion.div variants={item}>{Array.isArray(projects?.body) && <PortableText value={projects?.body} components={ptComponents} />}</motion.div>
+				<motion.div variants={item}>
+					{Array.isArray(projects?.body) && <PortableText value={projects?.body} components={ptComponents} />}
+				</motion.div>
 				<ul className="pt-10 flex flex-col gap-y-4">
 					{projects?.projects?.map((project) => {
 						if (project) {
 							const truncatedBody = Array.isArray(project.body) ? truncatePortableText(project.body, 25) : [];
 							return (
 								<motion.div key={project._id} variants={item}>
-									<li
-										className="grid border p-4 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent/30"
-										key={project._id}
-									>
-										<span className="justify-self-end col-start-1 row-start-1 text-muted-foreground">
-											<ExternalLink />
-										</span>
-										<span className="col-start-1 row-start-1">
-											<Link href={`/projects/${project.slug.current}`}>
+									<Link href={`/projects/${project.slug.current}`}>
+										<li
+											className="grid border p-4 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent/30"
+											key={project._id}
+										>
+											<span className="justify-self-end col-start-1 row-start-1 text-muted-foreground">
+												<ExternalLink />
+											</span>
+											<span className="col-start-1 row-start-1">
 												<h2 className="hover:underline text-xl font-semibold">{project.title}</h2>
 												{Array.isArray(truncatedBody) && truncatedBody.length > 0 && (
 													<div className="text-sm text-muted-foreground">
 														<PortableText value={truncatedBody} />
 													</div>
 												)}
-											</Link>
-										</span>
-									</li>
+											</span>
+										</li>
+									</Link>
 								</motion.div>
 							);
 						}
