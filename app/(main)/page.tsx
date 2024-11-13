@@ -1,14 +1,9 @@
 import CodeBlock from "@/components/CodeBlock";
 import { Home, HOME_QUERYResult, internalGroqTypeReferenceTo, Project } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/live";
-import { groq, PortableText } from "next-sanity";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { groq } from "next-sanity";
 import HomePageComponent from "@/components/HomePageComponent";
+import type { Metadata } from "next";
 
 const HOME_QUERY = groq`*[_type == "home"][0]{
   cta,
@@ -16,11 +11,23 @@ const HOME_QUERY = groq`*[_type == "home"][0]{
   body,
 }`;
 
-export default async function HomePage() {
+async function fetchData() {
 	const { data } = await sanityFetch({ query: HOME_QUERY, params: {} });
 	const home = data as HOME_QUERYResult;
 
-	return (
-		<HomePageComponent cta={home?.cta} title={home?.title} body={home?.body} />
-	)
+	return home;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+	const home = await fetchData();
+
+	return {
+		title: home?.title,
+	};
+}
+
+export default async function HomePage() {
+	const home = await fetchData();
+
+	return <HomePageComponent cta={home?.cta} title={home?.title} body={home?.body} />;
 }

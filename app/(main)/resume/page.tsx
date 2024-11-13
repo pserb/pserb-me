@@ -1,3 +1,9 @@
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'Resume | Paul Serbanescu',
+}
+
 export default function Resume() {
     return (
         <main className="container mx-auto min-h-screen p-8 pt-24">
