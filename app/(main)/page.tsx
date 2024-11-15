@@ -1,8 +1,7 @@
-import CodeBlock from "@/components/CodeBlock";
-import { Home, HOME_QUERYResult, internalGroqTypeReferenceTo, Project } from "@/sanity.types";
+import { HOME_QUERYResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/live";
 import { groq } from "next-sanity";
-import HomePageComponent from "@/components/HomePageComponent";
+import HomePageComponent from "@/components/page/HomePageComponent";
 import type { Metadata } from "next";
 
 const HOME_QUERY = groq`*[_type == "home"][0]{

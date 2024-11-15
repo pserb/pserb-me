@@ -1,7 +1,7 @@
 import { PROJECT_QUERYResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/live";
 import { groq } from "next-sanity";
-import ProjectPageComponent from "@/components/ProjectPageComponent";
+import ProjectPageComponent from "@/components/page/ProjectPageComponent";
 import { Metadata } from "next";
 
 const PROJECT_QUERY = groq`*[_type == "project" && slug.current == $slug][0]`;

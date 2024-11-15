@@ -1,11 +1,8 @@
-import AboutPageComponent from "@/components/AboutPageComponent";
-import CodeBlock from "@/components/CodeBlock";
+import AboutPageComponent from "@/components/page/AboutPageComponent";
 import { ABOUT_QUERYResult } from "@/sanity.types";
-import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
-import imageUrlBuilder from "@sanity/image-url";
 import { Metadata } from "next";
-import { groq, PortableText } from "next-sanity";
+import { groq } from "next-sanity";
 
 const ABOUT_QUERY = groq`*[_type == "about"][0]{
     cta,

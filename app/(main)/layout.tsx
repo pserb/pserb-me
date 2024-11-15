@@ -4,13 +4,11 @@ import { SanityLive } from "@/sanity/lib/live";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeProvider } from "@/components/utils/theme-provider";
 import Navbar from "@/components/navbar";
 
 const geist = Geist({ subsets: ["latin"], adjustFontFallback: false });
 const geistMono = Geist_Mono({ subsets: ["latin"], adjustFontFallback: false, variable: "--geistMono" });
-
 
 export const metadata: Metadata = {
 	title: "Create Next App",
