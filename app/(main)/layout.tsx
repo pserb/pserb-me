@@ -25,7 +25,9 @@ export default async function RootLayout({
 			<body className={`${geist.className} ${geistMono.variable}`}>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<Navbar />
-					{children}
+					<main className="container mx-auto min-h-screen max-w-3xl p-8 pt-28">
+						{children}
+					</main>
 					<SanityLive />
 					{(await draftMode()).isEnabled && <VisualEditing />}
 				</ThemeProvider>
