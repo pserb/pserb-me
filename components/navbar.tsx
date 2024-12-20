@@ -6,7 +6,6 @@ import Link from "next/link";
 import { ModeToggle } from "./utils/mode-toggle";
 import { motionContainer, motionItem } from "./utils/framer-motion-utils";
 import FlutedGlass from "./ui/fluted-glass";
-import { insetButtonStyle } from "./utils/inset-button-utils";
 import { navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import {
 	DropdownMenu,
@@ -15,6 +14,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ChevronDown } from "lucide-react";
+import { navWinButtonStyle } from "./ui/win-button";
 
 
 export default function Navbar() {
@@ -22,17 +22,17 @@ export default function Navbar() {
 		<div className="fixed top-0 left-0 z-50 flex justify-center mt-6 w-screen h-14">
 			<NavigationMenu className="py-4 w-full">
 				<motion.div
-					className="mx-auto max-w-3xl w-[calc(100%-2rem)] flex items-center h-14 md:px-6 rounded-md overflow-hidden"
+					className="mx-auto max-w-3xl w-[calc(100%-2rem)] flex items-center h-16 md:px-6 overflow-hidden"
 					variants={motionContainer()}
 					initial="hidden"
 					animate="visible"
 				>
-					<FlutedGlass type="fluted" angle={90} className="absolute inset-0" rounded={true} border={true}>
+					<FlutedGlass type="fluted" angle={90} className="absolute inset-0" rounded={false} border={true}>
 						<div className="relative z-30 flex md:hidden items-center h-full">
 							<motion.div variants={motionItem}>
 								<DropdownMenu>
-									<DropdownMenuTrigger asChild>
-										<NavigationMenuLink className={`${navigationMenuTriggerStyle()} ${insetButtonStyle()} ml-4 text-[20px]`}><ChevronDown /></NavigationMenuLink>
+									<DropdownMenuTrigger className={`${navWinButtonStyle()}`} asChild>
+										<NavigationMenuLink className={`ml-4 text-[20px]`}><ChevronDown /></NavigationMenuLink>
 									</DropdownMenuTrigger>
 									<DropdownMenuContent align="end" className="ml-4">
 										<Link href="/" passHref>
@@ -67,7 +67,7 @@ export default function Navbar() {
 								<motion.div variants={motionItem}>
 									<NavigationMenuItem>
 										<Link href="/" legacyBehavior passHref>
-											<NavigationMenuLink className={`${navigationMenuTriggerStyle()} ${insetButtonStyle()}`}>Home</NavigationMenuLink>
+											<NavigationMenuLink className={`${navWinButtonStyle()}`}>Home</NavigationMenuLink>
 										</Link>
 									</NavigationMenuItem>
 								</motion.div>
@@ -76,7 +76,7 @@ export default function Navbar() {
 								<motion.div variants={motionItem}>
 									<NavigationMenuItem>
 										<Link href="/projects" legacyBehavior passHref>
-											<NavigationMenuLink className={`${navigationMenuTriggerStyle()} ${insetButtonStyle()}`}>Projects</NavigationMenuLink>
+											<NavigationMenuLink className={`${navWinButtonStyle()}`}>Projects</NavigationMenuLink>
 										</Link>
 									</NavigationMenuItem>
 								</motion.div>
@@ -85,7 +85,16 @@ export default function Navbar() {
 								<motion.div variants={motionItem}>
 									<NavigationMenuItem>
 										<Link href="/about" legacyBehavior passHref>
-											<NavigationMenuLink className={`${navigationMenuTriggerStyle()} ${insetButtonStyle()}`}>About</NavigationMenuLink>
+											<NavigationMenuLink className={`${navWinButtonStyle()}`}>About</NavigationMenuLink>
+										</Link>
+									</NavigationMenuItem>
+								</motion.div>
+							</NavigationMenuList>
+							<NavigationMenuList className="md:pr-8">
+								<motion.div variants={motionItem}>
+									<NavigationMenuItem>
+										<Link href="/resume" legacyBehavior passHref>
+											<NavigationMenuLink className={`${navWinButtonStyle()}`}>Resume</NavigationMenuLink>
 										</Link>
 									</NavigationMenuItem>
 								</motion.div>
@@ -93,8 +102,8 @@ export default function Navbar() {
 							<NavigationMenuList>
 								<motion.div variants={motionItem}>
 									<NavigationMenuItem>
-										<Link href="/resume" legacyBehavior passHref>
-											<NavigationMenuLink className={`${navigationMenuTriggerStyle()} ${insetButtonStyle()}`}>Resume</NavigationMenuLink>
+										<Link href="/test" legacyBehavior passHref>
+											<NavigationMenuLink className={`${navWinButtonStyle()}`}>Test</NavigationMenuLink>
 										</Link>
 									</NavigationMenuItem>
 								</motion.div>
