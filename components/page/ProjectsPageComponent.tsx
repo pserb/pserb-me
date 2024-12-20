@@ -45,7 +45,7 @@ export default function ProjectsPageComponent({ projects }: { projects: PROJECTS
 	const pathname = usePathname();
 	
 	return (
-		<main className="container mx-auto min-h-screen max-w-3xl p-8 pt-24">
+		// <main className="container mx-auto min-h-screen max-w-3xl p-8 pt-28">
 			<motion.div variants={motionContainer(0.18, 0.15)} initial="hidden" animate="visible">
 				<motion.div variants={motionItem}>
 					<SmartBreadcrumb pathname={pathname} pageTitle={projects?.title} />
@@ -87,6 +87,6 @@ export default function ProjectsPageComponent({ projects }: { projects: PROJECTS
 					})}
 				</ul>
 			</motion.div>
-		</main>
+		// </main>
 	);
 }

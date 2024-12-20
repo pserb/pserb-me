@@ -9,7 +9,6 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { motionContainer, motionItem } from "@/components/utils/framer-motion-utils";
-import { insetButtonStyle } from "../utils/inset-button-utils";
 import FlutedGlass from "../ui/fluted-glass";
 
 const ptComponents = {
@@ -31,7 +30,7 @@ interface HomePageComponentProps {
 
 export default function HomePageComponent({ cta, title, body }: HomePageComponentProps) {
 	return (
-		<main className="container mx-auto min-h-screen max-w-3xl p-8 pt-24">
+		// <main className="container mx-auto min-h-screen max-w-3xl p-8 pt-24">
 			<motion.div variants={motionContainer()} initial="hidden" animate="visible">
 				{/* <FlutedGlass type="fluted" className="h-auto min-h-[200px]" angle={90} rounded={true} border={false}> */}
 					<motion.div variants={motionItem}>
@@ -84,6 +83,6 @@ export default function HomePageComponent({ cta, title, body }: HomePageComponen
 					</motion.div>
 				{/* </FlutedGlass> */}
 			</motion.div>
-		</main>
+		// </main>
 	);
 }

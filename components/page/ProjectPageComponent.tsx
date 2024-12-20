@@ -12,7 +12,7 @@ export default function ProjectPageComponent({ project }: { project: PROJECT_QUE
 	const pathname = usePathname();
 
 	return (
-		<main className="container mx-auto min-h-screen max-w-3xl p-8 pt-24">
+		// <main className="container mx-auto min-h-screen max-w-3xl p-8 pt-24">
 			<motion.div variants={motionContainer(0.18, 0.22)} initial="hidden" animate="visible">
 				<motion.div variants={motionItem}>
 					<SmartBreadcrumb pathname={pathname} pageTitle={project?.title} />
@@ -24,6 +24,6 @@ export default function ProjectPageComponent({ project }: { project: PROJECT_QUE
 					{Array.isArray(project?.body) && <PortableText value={project?.body} components={portableTextComponents} />}
 				</motion.div>
 			</motion.div>
-		</main>
+		// </main>
 	);
 }

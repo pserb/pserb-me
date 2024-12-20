@@ -9,9 +9,9 @@ export default function ResumePageComponent() {
 	const pathname = usePathname();
 
 	return (
-		<main className="container mx-auto min-h-screen p-8 pt-16">
+		// <main className="container mx-auto min-h-screen p-8 pt-16">
 			<motion.div variants={motionContainer(0.18, 0.2)} initial="hidden" animate="visible">
-				<div className="max-w-3xl p-8 mx-auto">
+				<div className="max-w-3xl mx-auto">
 					<motion.div variants={motionItem}>
 						<SmartBreadcrumb pathname={pathname} pageTitle="Resume" />
 					</motion.div>
@@ -31,6 +31,6 @@ export default function ResumePageComponent() {
 					></iframe>
 				</motion.div>
 			</motion.div>
-		</main>
+		// </main>
 	);
 }
