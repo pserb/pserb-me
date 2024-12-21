@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap border border-primary text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 relative",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap border border-primary text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none relative",
   {
     variants: {
       variant: {
@@ -43,7 +43,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
@@ -78,4 +78,8 @@ export const navWinButtonStyle = cva([
 
   // shadow stippled
   "before:absolute before:content-[''] before:top-[4px] before:left-[4px] before:w-full before:h-full before:-z-10 before:bg-[radial-gradient(black_0.25px,transparent_0.8px)] dark:before:bg-[radial-gradient(white_0.25px,transparent_0.8px)] before:bg-[length:2px_2px]"
+]);
+
+export const solidShadow = cva([
+  "before:absolute before:content-[''] before:top-[6px] before:left-[6px] before:w-full before:h-full before:bg-foreground/15 before:-z-10 dark:before:bg-foreground/75"
 ]);

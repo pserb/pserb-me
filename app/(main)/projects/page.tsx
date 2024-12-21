@@ -12,6 +12,7 @@ const PROJECTS_QUERY = groq`*[_type == "projects"][0]{
     _id,
     title,
     slug,
+    thumbnail,
     body
   }
 }`;

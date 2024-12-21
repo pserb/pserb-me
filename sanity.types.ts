@@ -111,6 +111,17 @@ export type Project = {
   _rev: string;
   title: string;
   slug: Slug;
+  thumbnail?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   body?: BlockContent;
 };
 
@@ -297,7 +308,7 @@ export type ABOUT_QUERYResult = {
 
 // Source: ./app/(main)/projects/page.tsx
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "projects"][0]{  title,  body,  projects[]->{    _type,    _id,    title,    slug,    body  }}
+// Query: *[_type == "projects"][0]{  title,  body,  projects[]->{    _type,    _id,    title,    slug,    thumbnail,    body  }}
 export type PROJECTS_QUERYResult = {
   title: string;
   body: Array<{
@@ -323,6 +334,17 @@ export type PROJECTS_QUERYResult = {
     _id: string;
     title: string;
     slug: Slug;
+    thumbnail: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
     body: BlockContent | null;
   }> | null;
 } | null;
@@ -338,6 +360,17 @@ export type PROJECT_QUERYResult = {
   _rev: string;
   title: string;
   slug: Slug;
+  thumbnail?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   body?: BlockContent;
 } | null;
 
@@ -347,7 +380,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"home\"][0]{\n  cta,\n  title,\n  body,\n}": HOME_QUERYResult;
     "*[_type == \"about\"][0]{\n    cta,\n    title,\n    body\n}": ABOUT_QUERYResult;
-    "*[_type == \"projects\"][0]{\n  title,\n  body,\n  projects[]->{\n    _type,\n    _id,\n    title,\n    slug,\n    body\n  }\n}": PROJECTS_QUERYResult;
+    "*[_type == \"projects\"][0]{\n  title,\n  body,\n  projects[]->{\n    _type,\n    _id,\n    title,\n    slug,\n    thumbnail,\n    body\n  }\n}": PROJECTS_QUERYResult;
     "*[_type == \"project\" && slug.current == $slug][0]": PROJECT_QUERYResult;
   }
 }
