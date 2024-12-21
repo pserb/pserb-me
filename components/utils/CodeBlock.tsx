@@ -26,7 +26,7 @@ const CodeBlock = ({ value }: Props) => {
 
 	return (
 		<SyntaxHighlighter
-			className="rounded-lg"
+			className="border border-foreground"
 			showLineNumbers={false}
 			// showInlineLineNumbers={true}
 			language={mappedLanguage}

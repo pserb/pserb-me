@@ -14,7 +14,7 @@ export const portableTextComponents: Partial<PortableTextReactComponents> = {
 		image: ({ value }: any) => {
 			return (
 				<img
-					className="items-center justify-center mx-auto rounded-lg mb-6"
+					className="items-center justify-center mx-auto mb-6"
 					src={builder.image(value).height(1000).url()}
 					alt={value.alt}
 				/>
