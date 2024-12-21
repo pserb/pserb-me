@@ -52,8 +52,6 @@ export function NextSanityImage(
             alt={''}
             {...rest}
             src={urlForImage(src).url()!}
-            width={150}
-            height={150}
         />
     )
 }

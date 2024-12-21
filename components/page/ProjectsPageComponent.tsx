@@ -70,9 +70,9 @@ export default function ProjectsPageComponent({ projects }: { projects: PROJECTS
 										className="group grid border border-foreground shadow-[4px_4px_0_0_rgba(0,0,0,0.25)] dark:shadow-[4px_4px_0_0_rgba(255,255,255,0.25)] p-4 transition-colors duration-200 ease-in-out hover:bg-foreground hover:text-background"
 										key={project._id}
 									>
-										<div className="flex flex-row">
-											<span className="col-start-1 row-start-1">
-												<span className="flex flex-row items-center space-x-2">
+										<div className="flex flex-col md:flex-row space-y-4 md:space-y-0">
+											<div className="col-start-1 row-start-1 space-y-2">
+												<div className="flex flex-row items-center space-x-2">
 													<h2 className="underline text-xl font-semibold">{project.title}</h2>
 													<svg
 														xmlns="http://www.w3.org/2000/svg"
@@ -85,17 +85,19 @@ export default function ProjectsPageComponent({ projects }: { projects: PROJECTS
 															fill="currentColor"
 														/>
 													</svg>
-												</span>
+												</div>
 												{Array.isArray(truncatedBody) && truncatedBody.length > 0 && (
 													<div className="text-sm text-muted-foreground">
 														<PortableText value={truncatedBody} />
 													</div>
 												)}
-											</span>
+											</div>
 											{project.thumbnail && (
 												<NextSanityImage
-													className="ml-4 border border-foreground hover:border-background"
+													className="w-full aspect-square md:w-[200px] md:h-[200px] md:ml-6 m-auto border border-foreground hover:border-background"
 													src={project.thumbnail! as any}
+													width={300}
+													height={300}
 												/>)
 											}
 										</div>
