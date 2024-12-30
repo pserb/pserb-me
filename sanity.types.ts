@@ -297,15 +297,6 @@ export type HOME_QUERYResult = {
   }> | null;
 } | null;
 
-// Source: ./app/(main)/about/page.tsx
-// Variable: ABOUT_QUERY
-// Query: *[_type == "about"][0]{    cta,    title,    body}
-export type ABOUT_QUERYResult = {
-  cta: string | null;
-  title: string;
-  body: BlockContent | null;
-} | null;
-
 // Source: ./app/(main)/projects/page.tsx
 // Variable: PROJECTS_QUERY
 // Query: *[_type == "projects"][0]{  title,  body,  projects[]->{    _type,    _id,    title,    slug,    thumbnail,    body  }}
@@ -349,6 +340,15 @@ export type PROJECTS_QUERYResult = {
   }> | null;
 } | null;
 
+// Source: ./app/(main)/about/page.tsx
+// Variable: ABOUT_QUERY
+// Query: *[_type == "about"][0]{    cta,    title,    body}
+export type ABOUT_QUERYResult = {
+  cta: string | null;
+  title: string;
+  body: BlockContent | null;
+} | null;
+
 // Source: ./app/(main)/projects/[slug]/page.tsx
 // Variable: PROJECT_QUERY
 // Query: *[_type == "project" && slug.current == $slug][0]
@@ -379,8 +379,8 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"home\"][0]{\n  cta,\n  title,\n  body,\n}": HOME_QUERYResult;
-    "*[_type == \"about\"][0]{\n    cta,\n    title,\n    body\n}": ABOUT_QUERYResult;
     "*[_type == \"projects\"][0]{\n  title,\n  body,\n  projects[]->{\n    _type,\n    _id,\n    title,\n    slug,\n    thumbnail,\n    body\n  }\n}": PROJECTS_QUERYResult;
+    "*[_type == \"about\"][0]{\n    cta,\n    title,\n    body\n}": ABOUT_QUERYResult;
     "*[_type == \"project\" && slug.current == $slug][0]": PROJECT_QUERYResult;
   }
 }
