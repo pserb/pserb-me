@@ -3,6 +3,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { groq } from "next-sanity";
 import ProjectsPageComponent from "@/components/page/ProjectsPageComponent";
 import { Metadata } from "next";
+import { customMetadata } from "@/components/utils/metadata";
 
 const PROJECTS_QUERY = groq`*[_type == "projects"][0]{
   title,
@@ -18,22 +19,24 @@ const PROJECTS_QUERY = groq`*[_type == "projects"][0]{
 }`;
 
 async function fetchData() {
-	const { data } = await sanityFetch({ query: PROJECTS_QUERY, params: {} });
-	const projects = data as PROJECTS_QUERYResult;
+  const { data } = await sanityFetch({ query: PROJECTS_QUERY, params: {} });
+  const projects = data as PROJECTS_QUERYResult;
 
-	return projects;
+  return projects;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	const projects = await fetchData();
+  const projects = await fetchData();
 
-	return {
-		title: projects?.title + " | Paul Serbanescu",
-	};
+  return customMetadata({
+    title: projects?.title + " | Paul Serbanescu",
+    description: "Paul Serbanescu's projects",
+    ogtitle: projects?.title || "",
+  })
 }
 
 export default async function ProjectsPage() {
-	const projects = await fetchData();
+  const projects = await fetchData();
 
-	return <ProjectsPageComponent projects={projects} />;
+  return <ProjectsPageComponent projects={projects} />;
 }

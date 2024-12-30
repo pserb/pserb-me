@@ -1,9 +1,9 @@
-import { PROJECTS_QUERYResult } from '@/sanity.types';
+import { PROJECTS_QUERY_SITEMAPResult } from '@/sanity.types';
 import { sanityFetch } from '@/sanity/lib/live';
 import { MetadataRoute } from 'next'
 import { groq } from 'next-sanity';
 
-const PROJECTS_QUERY = groq`*[_type == "projects"][0]{
+const PROJECTS_QUERY_SITEMAP = groq`*[_type == "projects"][0]{
     title,
     body,
     projects[]->{
@@ -24,8 +24,8 @@ type SitemapItem = {
 };
 
 async function fetchData() {
-    const { data } = await sanityFetch({ query: PROJECTS_QUERY, params: {} });
-    const projects = data as PROJECTS_QUERYResult;
+    const { data } = await sanityFetch({ query: PROJECTS_QUERY_SITEMAP, params: {} });
+    const projects = data as PROJECTS_QUERY_SITEMAPResult;
 
     return projects;
 }

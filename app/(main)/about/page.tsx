@@ -1,4 +1,5 @@
 import AboutPageComponent from "@/components/page/AboutPageComponent";
+import { customMetadata } from "@/components/utils/metadata";
 import { ABOUT_QUERYResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/live";
 import { Metadata } from "next";
@@ -20,9 +21,11 @@ async function fetchData() {
 export async function generateMetadata(): Promise<Metadata> {
 	const about = await fetchData();
 
-	return {
+	return customMetadata({
 		title: about?.title + " | Paul Serbanescu",
-	};
+		description: "About Paul Serbanescu",
+		ogtitle: "About",
+	})
 }
 
 export default async function About() {

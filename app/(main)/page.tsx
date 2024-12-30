@@ -3,6 +3,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { groq } from "next-sanity";
 import HomePageComponent from "@/components/page/HomePageComponent";
 import type { Metadata } from "next";
+import { customMetadata } from "@/components/utils/metadata";
 
 const HOME_QUERY = groq`*[_type == "home"][0]{
   cta,
@@ -20,9 +21,11 @@ async function fetchData() {
 export async function generateMetadata(): Promise<Metadata> {
 	const home = await fetchData();
 
-	return {
-		title: home?.title,
-	};
+	return customMetadata({
+		title: home?.title || "Paul Serbanescu",
+		description: "Paul Serbanescu's personal website",
+		ogtitle: "",
+	});
 }
 
 export default async function HomePage() {
