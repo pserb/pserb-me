@@ -1,0 +1,7 @@
+{
+    "functions": {
+        "app/studio/[[...tool]]/page.tsx": {
+            "maxDuration": 60
+        }
+    }
+}
