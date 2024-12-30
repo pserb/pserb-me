@@ -50,11 +50,11 @@ export default function Navbar() {
 												About
 											</DropdownMenuItem>
 										</Link>
-										<Link href="/resume" passHref>
+										{/* <Link href="/resume" passHref>
 											<DropdownMenuItem>
 												Resume
 											</DropdownMenuItem>
-										</Link>
+										</Link> */}
 									</DropdownMenuContent>
 								</DropdownMenu>
 							</motion.div>
@@ -90,7 +90,7 @@ export default function Navbar() {
 									</NavigationMenuItem>
 								</motion.div>
 							</NavigationMenuList>
-							<NavigationMenuList className="md:pr-8">
+							{/* <NavigationMenuList className="md:pr-8">
 								<motion.div variants={motionItem}>
 									<NavigationMenuItem>
 										<Link href="/resume" legacyBehavior passHref>
@@ -98,8 +98,8 @@ export default function Navbar() {
 										</Link>
 									</NavigationMenuItem>
 								</motion.div>
-							</NavigationMenuList>
-							<NavigationMenuList>
+							</NavigationMenuList> */}
+							{/* <NavigationMenuList>
 								<motion.div variants={motionItem}>
 									<NavigationMenuItem>
 										<Link href="/test" legacyBehavior passHref>
@@ -107,7 +107,7 @@ export default function Navbar() {
 										</Link>
 									</NavigationMenuItem>
 								</motion.div>
-							</NavigationMenuList>
+							</NavigationMenuList> */}
 							<motion.div className="flex flex-1 justify-end p-4 -ml-4 md:ml-0" variants={motionItem}>
 								<ModeToggle />
 							</motion.div>
