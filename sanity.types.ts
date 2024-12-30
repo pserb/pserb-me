@@ -271,6 +271,49 @@ export type Code = {
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | Project | Slug | Projects | About | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Home | Code;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./app/sitemap.ts
+// Variable: PROJECTS_QUERY_SITEMAP
+// Query: *[_type == "projects"][0]{    title,    body,    projects[]->{      _type,      _id,      title,      slug,      thumbnail,      body    }  }
+export type PROJECTS_QUERY_SITEMAPResult = {
+  title: string;
+  body: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  projects: Array<{
+    _type: "project";
+    _id: string;
+    title: string;
+    slug: Slug;
+    thumbnail: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    body: BlockContent | null;
+  }> | null;
+} | null;
+
 // Source: ./app/(main)/page.tsx
 // Variable: HOME_QUERY
 // Query: *[_type == "home"][0]{  cta,  title,  body,}
@@ -378,6 +421,7 @@ export type PROJECT_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "*[_type == \"projects\"][0]{\n    title,\n    body,\n    projects[]->{\n      _type,\n      _id,\n      title,\n      slug,\n      thumbnail,\n      body\n    }\n  }": PROJECTS_QUERY_SITEMAPResult;
     "*[_type == \"home\"][0]{\n  cta,\n  title,\n  body,\n}": HOME_QUERYResult;
     "*[_type == \"about\"][0]{\n    cta,\n    title,\n    body\n}": ABOUT_QUERYResult;
     "*[_type == \"projects\"][0]{\n  title,\n  body,\n  projects[]->{\n    _type,\n    _id,\n    title,\n    slug,\n    thumbnail,\n    body\n  }\n}": PROJECTS_QUERYResult;
