@@ -6,6 +6,7 @@ import { VisualEditing } from "next-sanity";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/utils/theme-provider";
 import Navbar from "@/components/navbar";
+import { Analytics } from "@vercel/analytics/react"
 
 const geist = Geist({ subsets: ["latin"], adjustFontFallback: false });
 const geistMono = Geist_Mono({ subsets: ["latin"], adjustFontFallback: false, variable: "--geistMono" });
@@ -31,6 +32,7 @@ export default async function RootLayout({
 					<SanityLive />
 					{(await draftMode()).isEnabled && <VisualEditing />}
 				</ThemeProvider>
+				<Analytics />
 			</body>
 		</html>
 	);
