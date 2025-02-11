@@ -14,6 +14,7 @@ const customStyle: CSSProperties = {
 	marginBlock: "2em",
 	paddingInline: "1.5em",
 	backgroundColor: "#191919",
+	fontVariantLigatures: "none",
 };
 
 const CodeBlock = ({ value }: Props) => {
@@ -32,7 +33,7 @@ const CodeBlock = ({ value }: Props) => {
 			language={mappedLanguage}
 			style={a11yDark} // Add 'as any' to bypass type checking
 			customStyle={customStyle}
-			codeTagProps={{ style: { fontFamily: "var(--geistMono)" } }}
+			codeTagProps={{ style: { fontFamily: "var(--jetbrainsMono)" } }}
 		>
 			{code}
 		</SyntaxHighlighter>

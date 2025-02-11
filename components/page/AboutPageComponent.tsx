@@ -13,7 +13,7 @@ export default function AboutPageComponent({ about }: { about: ABOUT_QUERYResult
 	
 	return (
 		// <main className="container mx-auto min-h-screen max-w-3xl p-8 pt-24">
-			<motion.div variants={motionContainer(0.18, 0.22)} initial="hidden" animate="visible">
+			<motion.div variants={motionContainer()} initial="hidden" animate="visible">
 				<motion.div variants={motionItem}>
 					<SmartBreadcrumb pathname={pathname} pageTitle={about?.title} />
 				</motion.div>

@@ -30,7 +30,7 @@ export const portableTextComponents: Partial<PortableTextReactComponents> = {
 		blockquote: ({ children }) => <blockquote className="border-l-4 border-gray-300 pl-4 italic mb-4">{children}</blockquote>,
 	},
 	marks: {
-		strong: ({ children }: { children: React.ReactNode }) => <strong className="font-bold text-accent">{children}</strong>,
+		strong: ({ children }: { children: React.ReactNode }) => <strong className="font-bold">{children}</strong>,
 		link: ({ children, value }) => {
 			const rel = !value.href.startsWith("/") ? "noreferrer noopener" : undefined;
 			return (

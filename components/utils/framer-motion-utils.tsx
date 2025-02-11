@@ -1,6 +1,6 @@
 import { Variants } from "framer-motion";
 
-export const motionContainer = (delayChildren: number = 0.18, staggerChildren: number = 0.12): Variants => ({
+export const motionContainer = (delayChildren: number = 0, staggerChildren: number = 0.06): Variants => ({
 	hidden: { opacity: 0, y: -20 },
 	visible: {
 		opacity: 1,

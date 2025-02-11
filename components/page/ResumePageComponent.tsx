@@ -10,7 +10,7 @@ export default function ResumePageComponent() {
 
 	return (
 		// <main className="container mx-auto min-h-screen p-8 pt-16">
-			<motion.div variants={motionContainer(0.18, 0.2)} initial="hidden" animate="visible">
+			<motion.div variants={motionContainer()} initial="hidden" animate="visible">
 				<div className="max-w-3xl mx-auto">
 					<motion.div variants={motionItem}>
 						<SmartBreadcrumb pathname={pathname} pageTitle="Resume" />

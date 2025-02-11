@@ -13,7 +13,7 @@ export default function ProjectPageComponent({ project }: { project: PROJECT_QUE
 
 	return (
 		// <main className="container mx-auto min-h-screen max-w-3xl p-8 pt-24">
-			<motion.div variants={motionContainer(0.18, 0.22)} initial="hidden" animate="visible">
+			<motion.div variants={motionContainer(0.12, 0.1)} initial="hidden" animate="visible">
 				<motion.div variants={motionItem}>
 					<SmartBreadcrumb pathname={pathname} pageTitle={project?.title} />
 				</motion.div>
