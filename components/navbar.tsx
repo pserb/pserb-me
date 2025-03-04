@@ -93,6 +93,15 @@ export default function Navbar() {
 							{/* <NavigationMenuList className="md:pr-8">
 								<motion.div variants={motionItem}>
 									<NavigationMenuItem>
+										<Link href="/light-demo" legacyBehavior passHref>
+											<NavigationMenuLink className={`${navWinButtonStyle()}`}>Light Demo</NavigationMenuLink>
+										</Link>
+									</NavigationMenuItem>
+								</motion.div>
+							</NavigationMenuList> */}
+							{/* <NavigationMenuList className="md:pr-8">
+								<motion.div variants={motionItem}>
+									<NavigationMenuItem>
 										<Link href="/resume" legacyBehavior passHref>
 											<NavigationMenuLink className={`${navWinButtonStyle()}`}>Resume</NavigationMenuLink>
 										</Link>
