@@ -7,12 +7,13 @@ import { motionContainer, motionItem } from "../utils/framer-motion-utils";
 import { portableTextComponents } from "../utils/portable-text-utils";
 import { usePathname } from "next/navigation";
 import SmartBreadcrumb from "../utils/breadcrumb-utils";
+import GlassSheet from "../ui/glass-sheet";
 
 export default function ProjectPageComponent({ project }: { project: PROJECT_QUERYResult }) {
 	const pathname = usePathname();
 
 	return (
-		// <main className="container mx-auto min-h-screen max-w-3xl p-8 pt-24">
+		<GlassSheet tint="clear" rounded={false} elevation="raised" transparency={50}>
 			<motion.div variants={motionContainer(0.12, 0.1)} initial="hidden" animate="visible">
 				<motion.div variants={motionItem}>
 					<SmartBreadcrumb pathname={pathname} pageTitle={project?.title} />
@@ -24,6 +25,6 @@ export default function ProjectPageComponent({ project }: { project: PROJECT_QUE
 					{Array.isArray(project?.body) && <PortableText value={project?.body} components={portableTextComponents} />}
 				</motion.div>
 			</motion.div>
-		// </main>
+		</GlassSheet>
 	);
 }
