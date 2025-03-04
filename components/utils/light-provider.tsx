@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import NaturalLight from './natural-light';
 import AmbientLight from './ambient-light';
 import GodRays from './god-rays';  // Import the new GodRays component
 import { useNaturalLight } from '@/components/utils/natural-light-context';
@@ -43,22 +42,6 @@ const LightProvider: React.FC<LightProviderProps> = ({
       >
         {children}
       </GodRays>
-    );
-  }
-
-  if (lightMode === 'ambient') {
-    return (
-      <AmbientLight
-        intensity={intensity}
-        colorMode={colorMode}
-        position={position}
-        temperatureK={temperatureK}
-        driftSpeed={driftSpeed}
-        numberOfRays={numberOfRays}
-        className={className}
-      >
-        {children}
-      </AmbientLight>
     );
   }
 

@@ -32,10 +32,10 @@ export default async function RootLayout({
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<NaturalLightProvider
 						defaultLightMode="natural"
-						defaultColorMode="neutral"
-						defaultIntensity={40}
+						defaultColorMode="cool"
+						defaultIntensity={50}
 						defaultPosition="top-left"
-						defaultTemperatureK={7500}
+						defaultTemperatureK={7000}
 						defaultDriftSpeed="none"
 						defaultNumberOfRays={10}
 					>
