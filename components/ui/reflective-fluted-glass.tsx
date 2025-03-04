@@ -133,31 +133,6 @@ const ReflectiveFlutedGlass: React.FC<ReflectiveFlutedGlassProps> = ({
         border={border}
       >
         {children}
-        
-        {/* Light reflection effect */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none z-10"
-          animate={isNearElement ? {
-            background: `radial-gradient(
-              circle at ${reflectionX} ${reflectionY},
-              rgba(255, 255, 255, ${opacity * normalizedIntensity}) 0%,
-              transparent ${size}%
-            )`,
-            backdropFilter: `blur(${blur}px)`,
-            opacity: 1,
-          } : {
-            background: `radial-gradient(
-              circle at 50% 50%,
-              rgba(255, 255, 255, ${opacity * normalizedIntensity * 0.6}) 0%,
-              transparent ${size * 1.2}%
-            )`,
-            backdropFilter: `blur(${blur * 1.5}px)`,
-            opacity: 0.7,
-            ...idleAnimation,
-          }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          style={{ mixBlendMode: 'overlay' }}
-        />
       </FlutedGlass>
     </div>
   );

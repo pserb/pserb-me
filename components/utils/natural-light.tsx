@@ -172,33 +172,19 @@ const NaturalLight: React.FC<NaturalLightProps> = ({
       <div className="relative z-10">{children}</div>
 
       {/* Primary light source */}
-      <motion.div
+      <div
         className="fixed inset-0 pointer-events-none z-0"
         style={{ mixBlendMode: isDarkMode ? 'plus-lighter' : 'multiply' }}
-        animate={{
-          background: `radial-gradient(circle at ${lightPosition.x}% ${lightPosition.y}%, ${colors.primary} 0%, transparent 70%)`,
-          ...driftAnimation,
-        }}
       />
 
       {/* Secondary light rays */}
-      <motion.div
+      <div
         className="fixed inset-0 pointer-events-none z-0"
         style={{ mixBlendMode: isDarkMode ? 'plus-lighter' : 'multiply' }}
-        animate={{
-          background: `conic-gradient(
-            from 45deg at ${lightPosition.x}% ${lightPosition.y}%, 
-            ${colors.secondary} 0%, 
-            transparent 15%, 
-            transparent 85%, 
-            ${colors.secondary} 100%
-          )`,
-          ...driftAnimation,
-        }}
       />
       
       {/* Lens flare effect */}
-      <motion.div
+      <div
         className="fixed pointer-events-none z-0"
         style={{ 
           width: '200px', 
@@ -208,10 +194,6 @@ const NaturalLight: React.FC<NaturalLightProps> = ({
           transform: 'translate(-50%, -50%)',
           mixBlendMode: 'plus-lighter',
           opacity: isDarkMode ? 0.4 : 0.1
-        }}
-        animate={{
-          boxShadow: `0 0 100px 20px ${colors.primary}`,
-          ...driftAnimation,
         }}
       />
       

@@ -283,20 +283,7 @@ const AmbientLight: React.FC<AmbientLightProps> = ({
         if (index >= controlsArray.length) return null;
         
         return (
-          <motion.div
-            key={`ambient-light-${index}`}
-            className="fixed inset-0 pointer-events-none"
-            style={{ 
-              zIndex: -1, 
-              opacity: index === 0 ? 0.9 : 0.7, 
-              mixBlendMode: themeStyles.mixBlendMode,
-              '--color': colors[index % colors.length] 
-            } as any}
-            initial={{ 
-              background: `radial-gradient(circle at ${position.x}% ${position.y}%, var(--color) 0%, transparent ${position.size}%)` 
-            }}
-            animate={controlsArray[index]}
-          />
+          <></>
         );
       })}
       

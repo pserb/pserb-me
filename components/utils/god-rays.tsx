@@ -388,7 +388,7 @@ const GodRays: React.FC<GodRaysProps> = ({
           const perlinNoiseTexture = getPerlinNoiseSVG(PERLIN_NOISE_OPACITY)
 
           return (
-            <motion.div
+            <div
               key={`ray-${index}`}
               className="absolute origin-[0%_0%]"
               style={{
@@ -402,7 +402,7 @@ const GodRays: React.FC<GodRaysProps> = ({
               }}
             >
               {/* Base ray with gradient */}
-              <motion.div
+              <div
                 className="absolute inset-0"
                 style={{
                   background: `linear-gradient(to bottom, ${rayColor}, transparent ${RAY_GRADIENT_STOP * 100}%)`,
@@ -410,11 +410,10 @@ const GodRays: React.FC<GodRaysProps> = ({
                   opacity: ray.opacity * 0.8,
                   filter: `blur(${RAY_BLUR_RANGE[0]}px) contrast(${RAY_CONTRAST_RANGE[0]}) saturate(${RAY_SATURATION_RANGE[0]})`,
                 }}
-                animate={animate ? getRayAnimation(ray) : undefined}
               />
 
               {/* Grainy edge layer */}
-              <motion.div
+              <div
                 className="absolute inset-0"
                 style={{
                   background: edgeNoiseTexture,
@@ -425,30 +424,10 @@ const GodRays: React.FC<GodRaysProps> = ({
                   filter: `blur(${EDGE_BLUR_RANGE[0]}px) contrast(${EDGE_CONTRAST_RANGE[0]}) saturate(${EDGE_SATURATION_RANGE[0]})`,
                   transform: `scale(${EDGE_SCALE[0]}, ${EDGE_SCALE[1]})`,
                 }}
-                animate={
-                  animate
-                    ? {
-                        filter: [
-                          `blur(${EDGE_BLUR_RANGE[0]}px) contrast(${EDGE_CONTRAST_RANGE[0]}) saturate(${EDGE_SATURATION_RANGE[0]})`,
-                          `blur(${EDGE_BLUR_RANGE[1]}px) contrast(${EDGE_CONTRAST_RANGE[1]}) saturate(${EDGE_SATURATION_RANGE[1]})`,
-                          `blur(${EDGE_BLUR_RANGE[0]}px) contrast(${EDGE_CONTRAST_RANGE[0]}) saturate(${EDGE_SATURATION_RANGE[0]})`,
-                        ],
-                        opacity: [ray.opacity * 0.9, ray.opacity * 0.7, ray.opacity * 0.9],
-                        transition: {
-                          duration:
-                            ANIMATION_DURATION_RANGE[0] +
-                            Math.random() * (ANIMATION_DURATION_RANGE[1] - ANIMATION_DURATION_RANGE[0]),
-                          repeat: Number.POSITIVE_INFINITY,
-                          repeatType: "reverse",
-                          ease: "easeInOut",
-                        },
-                      }
-                    : undefined
-                }
               />
 
               {/* Perlin noise displacement layer for ultra-grainy edges */}
-              <motion.div
+              <div
                 className="absolute inset-0"
                 style={{
                   background: perlinNoiseTexture,
@@ -458,33 +437,10 @@ const GodRays: React.FC<GodRaysProps> = ({
                   filter: `blur(${PERLIN_BLUR_RANGE[0]}px) contrast(${PERLIN_CONTRAST}) brightness(${PERLIN_BRIGHTNESS_RANGE[0]})`,
                   transform: `scale(${PERLIN_SCALE[0]}, ${PERLIN_SCALE[1]})`,
                 }}
-                animate={
-                  animate
-                    ? {
-                        filter: [
-                          `blur(${PERLIN_BLUR_RANGE[0]}px) contrast(${PERLIN_CONTRAST}) brightness(${PERLIN_BRIGHTNESS_RANGE[0]})`,
-                          `blur(${PERLIN_BLUR_RANGE[1]}px) contrast(${PERLIN_CONTRAST}) brightness(${PERLIN_BRIGHTNESS_RANGE[1]})`,
-                          `blur(${PERLIN_BLUR_RANGE[0]}px) contrast(${PERLIN_CONTRAST}) brightness(${PERLIN_BRIGHTNESS_RANGE[0]})`,
-                        ],
-                        opacity: [ray.opacity * 0.6, ray.opacity * 0.4, ray.opacity * 0.6],
-                        backgroundPosition: [
-                          "0% 0%",
-                          `${Math.random() * PERLIN_POSITION_RANGE}% ${Math.random() * PERLIN_POSITION_RANGE}%`,
-                          "0% 0%",
-                        ],
-                        transition: {
-                          duration: ANIMATION_DURATION_RANGE[1] + Math.random() * ANIMATION_DURATION_RANGE[0],
-                          repeat: Number.POSITIVE_INFINITY,
-                          repeatType: "reverse",
-                          ease: "easeInOut",
-                        },
-                      }
-                    : undefined
-                }
               />
 
               {/* Outer diffusion glow */}
-              <motion.div
+              <div
                 className="absolute inset-0"
                 style={{
                   background: "transparent",
@@ -495,7 +451,7 @@ const GodRays: React.FC<GodRaysProps> = ({
                   transform: `scale(${GLOW_SCALE[0]}, ${GLOW_SCALE[1]})`,
                 }}
               />
-            </motion.div>
+            </div>
           )
         })}
         {/* High-frequency grain overlay for enhanced texture */}

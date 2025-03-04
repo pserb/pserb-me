@@ -71,9 +71,8 @@ const LuminousText: React.FC<LuminousTextProps> = ({
     : '';
 
   return (
-    <motion.span
+    <span
       style={{ display: 'inline-block' }}
-      animate={breathingAnimation}
     >
       <Component 
         className={cn(hoverClass, underlineClass, className)}
@@ -81,7 +80,7 @@ const LuminousText: React.FC<LuminousTextProps> = ({
       >
         {children}
       </Component>
-    </motion.span>
+    </span>
   );
 };
 

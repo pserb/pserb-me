@@ -109,28 +109,6 @@ const ReflectiveSurface: React.FC<ReflectiveSurfaceProps> = ({
       className={cn('relative overflow-hidden', className)}
     >
       {children}
-      
-      {/* Reflection layer */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none z-0"
-        animate={shouldApplyEffect ? {
-          background: `radial-gradient(
-            circle at ${reflectionX} ${reflectionY},
-            ${reflectionColor} 0%,
-            transparent ${normalizedSize}%
-          )`,
-          opacity: normalizedIntensity,
-        } : {
-          background: `radial-gradient(
-            circle at 50% 50%,
-            ${reflectionColor} 0%,
-            transparent ${normalizedSize}%
-          )`,
-          opacity: normalizedIntensity * 0.5,
-          ...idleAnimation,
-        }}
-        transition={{ duration: 0.3 }}
-      />
     </div>
   );
 };
