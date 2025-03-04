@@ -9,7 +9,6 @@ import Navbar from "@/components/navbar";
 import { Analytics } from "@vercel/analytics/react";
 import NaturalLightProvider from "@/components/utils/natural-light-context";
 import LightProvider from "@/components/utils/light-provider";
-import { ScrollbarSizeProvider } from "@/components/utils/scrollbar-utils";
 
 const geist = Geist({ subsets: ["latin"], adjustFontFallback: false });
 const geistMono = Geist_Mono({ subsets: ["latin"], adjustFontFallback: false, variable: "--geistMono" });
@@ -41,12 +40,10 @@ export default async function RootLayout({
 						defaultNumberOfRays={10}
 					>
 						<LightProvider>
-							<ScrollbarSizeProvider>
-								<Navbar />
-								<main className="container mx-auto min-h-screen p-8 pt-28">{children}</main>
-								<SanityLive />
-								{(await draftMode()).isEnabled && <VisualEditing />}
-							</ScrollbarSizeProvider>
+							<Navbar />
+							<main className="container mx-auto min-h-screen p-8 pt-28">{children}</main>
+							<SanityLive />
+							{(await draftMode()).isEnabled && <VisualEditing />}
 						</LightProvider>
 					</NaturalLightProvider>
 				</ThemeProvider>
