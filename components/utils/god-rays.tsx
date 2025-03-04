@@ -132,8 +132,8 @@ const GodRays: React.FC<GodRaysProps> = ({
 			for (let i = 0; i < rayCount; i++) {
 				const ratio = i / (rayCount - 1);
 				// generate random x and y offsets
-				let xOffset = Math.random() * 50 - 50;
-				let yOffset = Math.random() * 50 - 50;
+				const xOffset = Math.random() * 50 - 50;
+				const yOffset = Math.random() * 50 - 50;
 				origins.push({
 					x: xOffset + ratio * 20,
 					y: yOffset + ratio * 20,
