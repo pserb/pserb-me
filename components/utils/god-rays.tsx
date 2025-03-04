@@ -47,7 +47,7 @@ const AMBIENT_OVERLAY_OPACITY_DARK = 0.15 // Opacity for ambient overlay in dark
 const AMBIENT_BLUR = 8 // Blur value for ambient overlay
 
 // Animation control
-const DEFAULT_ANIMATE = true // Default value for animation
+const DEFAULT_ANIMATE = false // Default value for animation
 
 interface GodRaysProps {
   children?: React.ReactNode
