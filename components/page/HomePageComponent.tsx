@@ -12,6 +12,7 @@ import { motionContainer, motionItem } from "@/components/utils/framer-motion-ut
 import FlutedGlass from "../ui/fluted-glass";
 import { solidShadow, WinButton } from "../ui/win-button";
 import GlassSheet from "../ui/glass-sheet";
+import { portableTextComponents } from "../utils/portable-text-utils";
 
 const ptComponents = {
 	types: {
@@ -62,7 +63,7 @@ export default function HomePageComponent({ cta, title, body }: HomePageComponen
 				</motion.div>
 
 				<motion.div variants={motionItem}>
-					{Array.isArray(body) && <PortableText value={body} components={ptComponents} />}
+					{Array.isArray(body) && <PortableText value={body} components={portableTextComponents} />}
 				</motion.div>
 
 				<motion.div variants={motionItem}>
