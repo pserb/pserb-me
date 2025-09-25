@@ -4,7 +4,7 @@ import React from "react";
 export default function SmartBreadcrumb({ pathname, pageTitle }: { pathname: string; pageTitle: string | undefined }) {
 	const segments = pathname.split("/");
 	return (
-		<Breadcrumb className="py-2">
+		<Breadcrumb className="py-2 mt-2">
 			<BreadcrumbList>
 				{segments.map((segment: string, index: number) => {
 					const href = segment.length > 1 ? `/${segment}` : "/";

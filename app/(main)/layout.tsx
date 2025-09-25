@@ -41,7 +41,7 @@ export default async function RootLayout({
 					>
 						<LightProvider>
 							<Navbar />
-							<main className="container mx-auto min-h-screen p-8 pt-28">{children}</main>
+							<main className="mx-auto max-w-3xl w-[calc(100%-2rem)] md:px-6 min-h-screen p-8 pt-28">{children}</main>
 							<SanityLive />
 							{(await draftMode()).isEnabled && <VisualEditing />}
 						</LightProvider>
