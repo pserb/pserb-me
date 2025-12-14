@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Oxanium, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
-const geist = Geist({ subsets: ["latin"], adjustFontFallback: false });
-const geistMono = Geist_Mono({ subsets: ["latin"], adjustFontFallback: false, variable: "--geistMono" });
-
-const tempFont = Oxanium({ subsets: ["latin"], adjustFontFallback: false });
-const tempMono = JetBrains_Mono({ subsets: ["latin"], adjustFontFallback: false, variable: "--jetbrainsMono" });
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], adjustFontFallback: false });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], adjustFontFallback: false });
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -19,8 +16,7 @@ export default async function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            {/* <body className={`${geist.className} ${geistMono.variable}`}> */}
-            <body className={`${tempFont.className} ${tempMono.variable}`}>
+            <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 {children}
             </body>
         </html>

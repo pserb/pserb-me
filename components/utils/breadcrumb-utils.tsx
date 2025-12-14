@@ -4,8 +4,8 @@ import React from "react";
 export default function SmartBreadcrumb({ pathname, pageTitle }: { pathname: string; pageTitle: string | undefined }) {
 	const segments = pathname.split("/");
 	return (
-		<Breadcrumb className="py-2 mt-2">
-			<BreadcrumbList>
+		<Breadcrumb className="mt-1 ml-[2px] -mb-4">
+			<BreadcrumbList className="font-mono text-xs">
 				{segments.map((segment: string, index: number) => {
 					const href = segment.length > 1 ? `/${segment}` : "/";
 					let label = segment.length > 1 ? segment.charAt(0).toUpperCase() + segment.slice(1) : "Home";
@@ -17,9 +17,13 @@ export default function SmartBreadcrumb({ pathname, pageTitle }: { pathname: str
 					return (
 						<React.Fragment key={index}>
 							<BreadcrumbItem>
-								<BreadcrumbLink href={href}>{label}</BreadcrumbLink>
+								<BreadcrumbLink 
+									href={href}
+									className={isLast ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
+								>
+									{label}
+								</BreadcrumbLink>
 							</BreadcrumbItem>
-							{/* only <BreadcrumbSeparator /> if not the last item in list */}
 							{!isLast && <BreadcrumbSeparator />}
 						</React.Fragment>
 					);

@@ -1,82 +1,186 @@
-@import './light-utils.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 90%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 56.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 238 40% 54%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    
-    /* Light effect variables */
-    --light-primary: 255 255 255;
-    --light-accent: 180 200 255;
-    --light-warm: 255 220 180;
-    --light-cool: 180 220 255;
-    --light-intensity: 0.15;
-    --light-glow-radius: 10px;
-    --light-reflection-opacity: 0.07;
-    
-    --radius: 0.5rem;
+    /* Terminal UI Design System
+     * NOTE: variables are stored as OKLCH components (no function wrapper)
+     * so Tailwind can apply opacity via: oklch(var(--token) / <alpha>).
+     *
+     * These match the canonical values in DESIGN_SYSTEM.md.
+     */
+
+    /* Layered elevation system */
+    --background: 0.985 0 0; /* oklch(0.985 0 0) */
+    --foreground: 0.09 0 0;  /* oklch(0.09 0 0) */
+
+    /* Cards and elevated surfaces */
+    --card: 1 0 0; /* oklch(1 0 0) */
+    --card-foreground: 0.09 0 0;
+    --popover: 1 0 0;
+    --popover-foreground: 0.09 0 0;
+
+    /* Interactive elements */
+    --primary: 0.09 0 0;
+    --primary-foreground: 0.99 0 0;
+    --secondary: 0.97 0 0;
+    --secondary-foreground: 0.09 0 0;
+
+    /* Muted/disabled states */
+    --muted: 0.97 0 0;
+    --muted-foreground: 0.45 0 0;
+
+    /* Borders */
+    --border: 0.89 0 0;
+    --input: 0.89 0 0;
+    --ring: 0.09 0 0;
+
+    /* Semantic colors */
+    --accent: 0.55 0.22 250;
+    --accent-foreground: 0.99 0 0;
+    --destructive: 0.55 0.22 20;
+    --destructive-foreground: 0.99 0 0;
+    --success: 0.55 0.18 150;
+    --success-foreground: 0.99 0 0;
+    --warning: 0.65 0.18 70;
+    --warning-foreground: 0.09 0 0;
+
+    /* Chart colors */
+    --chart-1: 0.55 0.22 250;
+    --chart-2: 0.55 0.18 150;
+    --chart-3: 0.65 0.18 70;
+    --chart-4: 0.55 0.22 20;
+    --chart-5: 0.55 0.20 300;
+
+    /* Extended palette (light mode) */
+    --gray: 143 143 143;
+    --gray-foreground: 255 255 255;
+    --gray-subtle: 235 235 235;
+    --gray-subtle-foreground: 23 23 23;
+
+    --blue: 0.5761 0.2508 258.23;
+    --blue-foreground: 0.99 0 0;
+    --blue-subtle: 0.9629 0.0195 250.59;
+    --blue-subtle-foreground: 0.5318 0.2399 256.99;
+
+    --purple: 0.555 0.3008 306.12;
+    --purple-foreground: 0.99 0 0;
+    --purple-subtle: 0.9673 0.0228 309.8;
+    --purple-subtle-foreground: 0.4718 0.2579 304;
+
+    --amber: 0.8187 0.1969 76.46;
+    --amber-foreground: 0.09 0 0;
+    --amber-subtle: 0.9681 0.0495 90.2423;
+    --amber-subtle-foreground: 0.5279 0.1496 54.65;
+
+    --red: 0.6256 0.2524 23.03;
+    --red-foreground: 0.99 0 0;
+    --red-subtle: 0.9541 0.0299 14.2526;
+    --red-subtle-foreground: 0.5499 0.232 25.29;
+
+    --pink: 0.6352 0.238 1.01;
+    --pink-foreground: 0.99 0 0;
+    --pink-subtle: 0.9383 0.0451 356.29;
+    --pink-subtle-foreground: 0.535 0.2058 2.84;
+
+    --green: 0.6458 0.1746 147.27;
+    --green-foreground: 0.99 0 0;
+    --green-subtle: 0.9692 0.037 147.15;
+    --green-subtle-foreground: 0.5175 0.1453 147.65;
+
+    --teal: 0.6492 0.1572 181.95;
+    --teal-foreground: 0.99 0 0;
+    --teal-subtle: 0.9492 0.0478 182.07;
+    --teal-subtle-foreground: 0.5208 0.1251 182.93;
+
+    /* Radius token */
+    --radius: 4px;
   }
   
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 44.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 234.13 87% 82%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    
-    /* Dark mode light effect variables */
-    --light-primary: 200 200 255;
-    --light-accent: 180 180 255;
-    --light-warm: 255 180 140;
-    --light-cool: 140 200 255;
-    --light-intensity: 0.2;
-    --light-glow-radius: 15px;
-    --light-reflection-opacity: 0.1;
+    /* Layered elevation system */
+    --background: 0.11 0 0;
+    --foreground: 0.95 0 0;
+
+    /* Cards and elevated surfaces */
+    --card: 0.14 0 0;
+    --card-foreground: 0.95 0 0;
+    --popover: 0.17 0 0;
+    --popover-foreground: 0.95 0 0;
+
+    /* Interactive elements */
+    --primary: 0.95 0 0;
+    --primary-foreground: 0.09 0 0;
+    --secondary: 0.16 0 0;
+    --secondary-foreground: 0.95 0 0;
+
+    /* Muted/disabled states */
+    --muted: 0.16 0 0;
+    --muted-foreground: 0.55 0 0;
+
+    /* Borders */
+    --border: 0.25 0 0;
+    --input: 0.25 0 0;
+    --ring: 0.95 0 0;
+
+    /* Semantic colors */
+    --accent: 0.65 0.25 250;
+    --accent-foreground: 0.09 0 0;
+    --destructive: 0.60 0.25 20;
+    --destructive-foreground: 0.09 0 0;
+    --success: 0.65 0.20 150;
+    --success-foreground: 0.09 0 0;
+    --warning: 0.75 0.20 70;
+    --warning-foreground: 0.09 0 0;
+
+    /* Chart colors */
+    --chart-1: 0.65 0.25 250;
+    --chart-2: 0.65 0.20 150;
+    --chart-3: 0.75 0.20 70;
+    --chart-4: 0.60 0.25 20;
+    --chart-5: 0.65 0.22 300;
+
+    /* Extended palette (dark mode) */
+    --gray: 143 143 143;
+    --gray-foreground: 255 255 255;
+    --gray-subtle: 31 31 31;
+    --gray-subtle-foreground: 237 237 237;
+
+    --blue: 0.5761 0.2321 258.23;
+    --blue-foreground: 0.99 0 0;
+    --blue-subtle: 0.2545 0.0811 255.8;
+    --blue-subtle-foreground: 0.717 0.1648 250.794;
+
+    --purple: 0.555 0.2186 306.12;
+    --purple-foreground: 0.99 0 0;
+    --purple-subtle: 0.2591 0.0921 314.41;
+    --purple-subtle-foreground: 0.6987 0.2037 309.51;
+
+    --amber: 0.8187 0.1969 76.46;
+    --amber-foreground: 0.99 0 0;
+    --amber-subtle: 0.2495 0.0642 64.78;
+    --amber-subtle-foreground: 0.7721 0.1991 64.28;
+
+    --red: 0.6256 0.2234 23.03;
+    --red-foreground: 0.99 0 0;
+    --red-subtle: 0.2593 0.0834 19.02;
+    --red-subtle-foreground: 0.6996 0.2136 22.03;
+
+    --pink: 0.6352 0.2346 1.01;
+    --pink-foreground: 0.99 0 0;
+    --pink-subtle: 0.3115 0.1067 355.93;
+    --pink-subtle-foreground: 0.6936 0.2223 3.91;
+
+    --green: 0.6458 0.199 147.27;
+    --green-foreground: 0.99 0 0;
+    --green-subtle: 0.2712 0.0895 150.09;
+    --green-subtle-foreground: 0.731 0.2158 148.29;
+
+    --teal: 0.6492 0.1403 181.95;
+    --teal-foreground: 0.99 0 0;
+    --teal-subtle: 0.315 0.0767 180.99;
+    --teal-subtle-foreground: 0.7456 0.1765 182.8;
   }
 }
 
@@ -84,72 +188,21 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply bg-background;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "liga" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  h4 {
-    @apply text-primary text-2xl font-semibold;
+  /* Terminal UI typography defaults */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight;
   }
-}
-
-/* Light effects */
-.god-rays {
-  position: relative;
-  overflow: hidden;
-}
-
-.god-ray {
-  position: absolute;
-  height: 200vh;
-  width: 10vw;
-  pointer-events: none;
-  transform-origin: top;
-  filter: blur(5px);
-}
-
-.god-ray-warm {
-  background: linear-gradient(to bottom, rgba(255, 180, 100, 0.2), transparent 70%);
-}
-
-.god-ray-cool {
-  background: linear-gradient(to bottom, rgba(180, 200, 255, 0.2), transparent 70%);
-}
-
-.god-ray-neutral {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), transparent 70%);
-}
-
-/* Dark mode overrides */
-.dark .god-ray-warm {
-  background: linear-gradient(to bottom, rgba(255, 180, 100, 0.25), transparent 70%);
-  mix-blend-mode: screen;
-}
-
-.dark .god-ray-cool {
-  background: linear-gradient(to bottom, rgba(140, 180, 255, 0.3), transparent 70%);
-  mix-blend-mode: screen;
-}
-
-.dark .god-ray-neutral {
-  background: linear-gradient(to bottom, rgba(200, 220, 255, 0.2), transparent 70%);
-  mix-blend-mode: screen;
-}
-
-/* Reserve space for scrollbars to prevent layout shifts */
-:root {
-  --scrollbar-width: 0px;
-}
-
-/* Make sure navbar aligns with main content */
-.container {
-  margin-left: auto;
-  margin-right: auto;
-  padding-right: 1.3rem;
-  max-width: calc(48.2rem - var(--scrollbar-width));
-}
-
-@media screen and (max-width: 40rem) {
-  .container {
-    padding-right: 2rem;  
+  code, pre, kbd, samp {
+    @apply font-mono;
   }
 }

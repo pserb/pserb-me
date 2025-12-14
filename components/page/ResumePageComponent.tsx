@@ -4,33 +4,38 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { motionContainer, motionItem } from "@/components/utils/framer-motion-utils";
 import SmartBreadcrumb from "../utils/breadcrumb-utils";
+import Card from "../ui/card";
 
 export default function ResumePageComponent() {
 	const pathname = usePathname();
 
 	return (
-		// <main className="container mx-auto min-h-screen p-8 pt-16">
-			<motion.div variants={motionContainer()} initial="hidden" animate="visible">
-				<div className="max-w-3xl mx-auto">
+		<motion.div variants={motionContainer()} initial="hidden" animate="visible" className="space-y-6">
+			<Card>
+				<div className="space-y-6">
 					<motion.div variants={motionItem}>
 						<SmartBreadcrumb pathname={pathname} pageTitle="Resume" />
 					</motion.div>
-					<motion.div variants={motionItem}>
-						<h2 className="text-md text-secondary">paul serbanescu</h2>
-					</motion.div>
-					<motion.div variants={motionItem}>
-						<h1 className="text-4xl font-bold mb-8">Resume</h1>
+					
+					<motion.div variants={motionItem} className="space-y-2">
+						<span className="text-xs font-mono uppercase tracking-wide text-muted-foreground">
+							paul serbanescu
+						</span>
+						<h1 className="text-3xl font-bold tracking-tight">Resume</h1>
 					</motion.div>
 				</div>
-				<motion.div variants={motionItem}>
+			</Card>
+			
+			<motion.div variants={motionItem}>
+				<div className="rounded border border-border overflow-hidden shadow-md">
 					<iframe
-						className="mx-auto items-center justify-center max-w-5xl"
+						className="w-full bg-card"
 						src="paul-serbanescu-resume.pdf"
-						width="100%"
-						height="1000px"
-					></iframe>
-				</motion.div>
+						height="1000"
+						title="Resume PDF"
+					/>
+				</div>
 			</motion.div>
-		// </main>
+		</motion.div>
 	);
 }
