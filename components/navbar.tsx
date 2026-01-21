@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 const navLinkStyles = cn(
 	"inline-flex items-center justify-center h-9 px-4 py-2",
-	"text-sm font-medium font-mono",
+	"text-sm font-medium",
 	"border border-border bg-card",
 	"transition-all duration-150 hover:duration-0",
 	"hover:bg-foreground hover:text-background hover:border-foreground",
@@ -44,13 +44,16 @@ export default function Navbar() {
 									</DropdownMenuTrigger>
 									<DropdownMenuContent align="start" className="ml-2">
 										<Link href="/" passHref>
-											<DropdownMenuItem className="font-mono">Home</DropdownMenuItem>
+											<DropdownMenuItem>Home</DropdownMenuItem>
 										</Link>
 										<Link href="/projects" passHref>
-											<DropdownMenuItem className="font-mono">Projects</DropdownMenuItem>
+											<DropdownMenuItem>Projects</DropdownMenuItem>
 										</Link>
 										<Link href="/about" passHref>
-											<DropdownMenuItem className="font-mono">About</DropdownMenuItem>
+											<DropdownMenuItem>About</DropdownMenuItem>
+										</Link>
+										<Link href="/resume" passHref>
+											<DropdownMenuItem>Resume</DropdownMenuItem>
 										</Link>
 									</DropdownMenuContent>
 								</DropdownMenu>
@@ -77,6 +80,13 @@ export default function Navbar() {
 								<NavigationMenuItem>
 									<Link href="/about" legacyBehavior passHref>
 										<NavigationMenuLink className={navLinkStyles}>About</NavigationMenuLink>
+									</Link>
+								</NavigationMenuItem>
+							</motion.div>
+							<motion.div variants={motionItem}>
+								<NavigationMenuItem>
+									<Link href="/resume" legacyBehavior passHref>
+										<NavigationMenuLink className={navLinkStyles}>Resume</NavigationMenuLink>
 									</Link>
 								</NavigationMenuItem>
 							</motion.div>
