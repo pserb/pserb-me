@@ -83,7 +83,7 @@ export default function ProjectsPageComponent({ projects }: { projects: PROJECTS
 												</div>
 												{project.thumbnail && (
 													<NextSanityImage
-														className="w-full aspect-video md:w-[180px] md:aspect-square rounded border border-border group-hover:border-background/30"
+														className="w-full max-w-[180px] aspect-square md:w-[180px] md:max-w-none rounded border border-border group-hover:border-background/30"
 														src={project.thumbnail! as any}
 														width={300}
 														height={300}
