@@ -3,6 +3,7 @@ import CodeBlock from "./CodeBlock";
 import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
+import { isSanityGif, stripUrlQuery } from "./sanity-image-utils";
 
 const builder = imageUrlBuilder(client);
 
@@ -12,10 +13,14 @@ export const portableTextComponents: Partial<PortableTextReactComponents> = {
 			return <CodeBlock value={value} />;
 		},
 		image: ({ value }: any) => {
+			const rawUrl = isSanityGif(value)
+				? builder.image(value).url()
+				: builder.image(value).height(1000).url();
+			const imageUrl = isSanityGif(value) ? stripUrlQuery(rawUrl) : rawUrl;
 			return (
 				<img
 					className="mx-auto my-6 rounded border border-border shadow-sm"
-					src={builder.image(value).height(1000).url()}
+					src={imageUrl}
 					alt={value.alt}
 				/>
 			);
