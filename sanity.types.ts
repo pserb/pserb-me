@@ -68,6 +68,17 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type AsciiAnimationEmbed = {
+  _type: "asciiAnimationEmbed";
+  animation: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "asciiAnimation";
+  };
+  size?: "small" | "medium" | "large";
+};
+
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -101,6 +112,8 @@ export type BlockContent = Array<{
   _key: string;
 } | {
   _key: string;
+} & AsciiAnimationEmbed | {
+  _key: string;
 } & Code>;
 
 export type Project = {
@@ -122,7 +135,81 @@ export type Project = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  thumbnailAnimation?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "asciiAnimation";
+  };
   body?: BlockContent;
+};
+
+export type AsciiAnimation = {
+  _id: string;
+  _type: "asciiAnimation";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  animationType: "ascii-chip";
+  preset?: "chip-default" | "chip-dark" | "chip-light";
+  poster?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  config?: {
+    speed?: number;
+    rotationPeriod?: number;
+    grid?: {
+      columns?: number;
+      rows?: number;
+    };
+    character?: {
+      width?: number;
+      height?: number;
+      fontSize?: number;
+      fontFamily?: string;
+    };
+    colors?: {
+      cyan?: string;
+      teal?: string;
+      gold?: string;
+      edge?: string;
+      substrate?: string;
+      background?: string;
+    };
+    themeColors?: {
+      dark?: {
+        cyan?: string;
+        teal?: string;
+        gold?: string;
+        edge?: string;
+        substrate?: string;
+        background?: string;
+      };
+      light?: {
+        cyan?: string;
+        teal?: string;
+        gold?: string;
+        edge?: string;
+        substrate?: string;
+        background?: string;
+      };
+    };
+    chip?: {
+      size?: number;
+      thickness?: number;
+      projectionScale?: number;
+      cameraDistance?: number;
+    };
+  };
 };
 
 export type Slug = {
@@ -269,7 +356,7 @@ export type Code = {
   highlightedLines?: Array<number>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | Project | Slug | Projects | About | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Home | Code;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | AsciiAnimationEmbed | BlockContent | Project | AsciiAnimation | Slug | Projects | About | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Home | Code;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/sitemap.ts
 // Variable: PROJECTS_QUERY_SITEMAP
@@ -351,7 +438,7 @@ export type ABOUT_QUERYResult = {
 
 // Source: ./app/(main)/projects/page.tsx
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "projects"][0]{  title,  body,  projects[]->{    _type,    _id,    title,    slug,    thumbnail,    body  }}
+// Query: *[_type == "projects"][0]{  title,  body,  projects[]->{    _type,    _id,    title,    slug,    thumbnail,    thumbnailAnimation->{      _id,      title,      animationType,      config,      poster    },    body[]{      ...,      _type == "asciiAnimationEmbed" => {        ...,        animation->{          _id,          title,          animationType,          config,          poster        }      }    }  }}
 export type PROJECTS_QUERYResult = {
   title: string;
   body: Array<{
@@ -388,22 +475,184 @@ export type PROJECTS_QUERYResult = {
       crop?: SanityImageCrop;
       _type: "image";
     } | null;
-    body: BlockContent | null;
+    thumbnailAnimation: {
+      _id: string;
+      title: string;
+      animationType: "ascii-chip";
+      config: {
+        speed?: number;
+        rotationPeriod?: number;
+        grid?: {
+          columns?: number;
+          rows?: number;
+        };
+        character?: {
+          width?: number;
+          height?: number;
+          fontSize?: number;
+          fontFamily?: string;
+        };
+        colors?: {
+          cyan?: string;
+          teal?: string;
+          gold?: string;
+          edge?: string;
+          substrate?: string;
+          background?: string;
+        };
+        themeColors?: {
+          dark?: {
+            cyan?: string;
+            teal?: string;
+            gold?: string;
+            edge?: string;
+            substrate?: string;
+            background?: string;
+          };
+          light?: {
+            cyan?: string;
+            teal?: string;
+            gold?: string;
+            edge?: string;
+            substrate?: string;
+            background?: string;
+          };
+        };
+        chip?: {
+          size?: number;
+          thickness?: number;
+          projectionScale?: number;
+          cameraDistance?: number;
+        };
+      } | null;
+      poster: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+    } | null;
+    body: Array<{
+      _key: string;
+      _type: "asciiAnimationEmbed";
+      animation: {
+        _id: string;
+        title: string;
+        animationType: "ascii-chip";
+        config: {
+          speed?: number;
+          rotationPeriod?: number;
+          grid?: {
+            columns?: number;
+            rows?: number;
+          };
+          character?: {
+            width?: number;
+            height?: number;
+            fontSize?: number;
+            fontFamily?: string;
+          };
+          colors?: {
+            cyan?: string;
+            teal?: string;
+            gold?: string;
+            edge?: string;
+            substrate?: string;
+            background?: string;
+          };
+          themeColors?: {
+            dark?: {
+              cyan?: string;
+              teal?: string;
+              gold?: string;
+              edge?: string;
+              substrate?: string;
+              background?: string;
+            };
+            light?: {
+              cyan?: string;
+              teal?: string;
+              gold?: string;
+              edge?: string;
+              substrate?: string;
+              background?: string;
+            };
+          };
+          chip?: {
+            size?: number;
+            thickness?: number;
+            projectionScale?: number;
+            cameraDistance?: number;
+          };
+        } | null;
+        poster: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+      };
+      size?: "large" | "medium" | "small";
+    } | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "figcaption" | "h1" | "h2" | "h3" | "h4" | "normal";
+      listItem?: "bullet";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      _key: string;
+      _type: "code";
+      language?: string;
+      filename?: string;
+      code?: string;
+      highlightedLines?: Array<number>;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      height?: number;
+      width?: number;
+      _type: "image";
+      _key: string;
+    }> | null;
   }> | null;
 } | null;
 
 // Source: ./app/(main)/projects/[slug]/page.tsx
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && slug.current == $slug][0]
+// Query: *[_type == "project" && slug.current == $slug][0]{  _id,  title,  slug,  thumbnail,  thumbnailAnimation->{    _id,    title,    animationType,    config,    poster  },  body[]{    ...,    _type == "asciiAnimationEmbed" => {      ...,      animation->{        _id,        title,        animationType,        config,        poster      }    }  }}
 export type PROJECT_QUERYResult = {
   _id: string;
-  _type: "project";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
   title: string;
   slug: Slug;
-  thumbnail?: {
+  thumbnail: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -413,8 +662,174 @@ export type PROJECT_QUERYResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
-  };
-  body?: BlockContent;
+  } | null;
+  thumbnailAnimation: {
+    _id: string;
+    title: string;
+    animationType: "ascii-chip";
+    config: {
+      speed?: number;
+      rotationPeriod?: number;
+      grid?: {
+        columns?: number;
+        rows?: number;
+      };
+      character?: {
+        width?: number;
+        height?: number;
+        fontSize?: number;
+        fontFamily?: string;
+      };
+      colors?: {
+        cyan?: string;
+        teal?: string;
+        gold?: string;
+        edge?: string;
+        substrate?: string;
+        background?: string;
+      };
+      themeColors?: {
+        dark?: {
+          cyan?: string;
+          teal?: string;
+          gold?: string;
+          edge?: string;
+          substrate?: string;
+          background?: string;
+        };
+        light?: {
+          cyan?: string;
+          teal?: string;
+          gold?: string;
+          edge?: string;
+          substrate?: string;
+          background?: string;
+        };
+      };
+      chip?: {
+        size?: number;
+        thickness?: number;
+        projectionScale?: number;
+        cameraDistance?: number;
+      };
+    } | null;
+    poster: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+  } | null;
+  body: Array<{
+    _key: string;
+    _type: "asciiAnimationEmbed";
+    animation: {
+      _id: string;
+      title: string;
+      animationType: "ascii-chip";
+      config: {
+        speed?: number;
+        rotationPeriod?: number;
+        grid?: {
+          columns?: number;
+          rows?: number;
+        };
+        character?: {
+          width?: number;
+          height?: number;
+          fontSize?: number;
+          fontFamily?: string;
+        };
+        colors?: {
+          cyan?: string;
+          teal?: string;
+          gold?: string;
+          edge?: string;
+          substrate?: string;
+          background?: string;
+        };
+        themeColors?: {
+          dark?: {
+            cyan?: string;
+            teal?: string;
+            gold?: string;
+            edge?: string;
+            substrate?: string;
+            background?: string;
+          };
+          light?: {
+            cyan?: string;
+            teal?: string;
+            gold?: string;
+            edge?: string;
+            substrate?: string;
+            background?: string;
+          };
+        };
+        chip?: {
+          size?: number;
+          thickness?: number;
+          projectionScale?: number;
+          cameraDistance?: number;
+        };
+      } | null;
+      poster: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+    };
+    size?: "large" | "medium" | "small";
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "figcaption" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    _key: string;
+    _type: "code";
+    language?: string;
+    filename?: string;
+    code?: string;
+    highlightedLines?: Array<number>;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    height?: number;
+    width?: number;
+    _type: "image";
+    _key: string;
+  }> | null;
 } | null;
 
 // Query TypeMap
@@ -424,7 +839,7 @@ declare module "@sanity/client" {
     "*[_type == \"projects\"][0]{\n    title,\n    body,\n    projects[]->{\n      _type,\n      _id,\n      title,\n      slug,\n      thumbnail,\n      body\n    }\n  }": PROJECTS_QUERY_SITEMAPResult;
     "*[_type == \"home\"][0]{\n  cta,\n  title,\n  body,\n}": HOME_QUERYResult;
     "*[_type == \"about\"][0]{\n    cta,\n    title,\n    body\n}": ABOUT_QUERYResult;
-    "*[_type == \"projects\"][0]{\n  title,\n  body,\n  projects[]->{\n    _type,\n    _id,\n    title,\n    slug,\n    thumbnail,\n    body\n  }\n}": PROJECTS_QUERYResult;
-    "*[_type == \"project\" && slug.current == $slug][0]": PROJECT_QUERYResult;
+    "*[_type == \"projects\"][0]{\n  title,\n  body,\n  projects[]->{\n    _type,\n    _id,\n    title,\n    slug,\n    thumbnail,\n    thumbnailAnimation->{\n      _id,\n      title,\n      animationType,\n      config,\n      poster\n    },\n    body[]{\n      ...,\n      _type == \"asciiAnimationEmbed\" => {\n        ...,\n        animation->{\n          _id,\n          title,\n          animationType,\n          config,\n          poster\n        }\n      }\n    }\n  }\n}": PROJECTS_QUERYResult;
+    "*[_type == \"project\" && slug.current == $slug][0]{\n  _id,\n  title,\n  slug,\n  thumbnail,\n  thumbnailAnimation->{\n    _id,\n    title,\n    animationType,\n    config,\n    poster\n  },\n  body[]{\n    ...,\n    _type == \"asciiAnimationEmbed\" => {\n      ...,\n      animation->{\n        _id,\n        title,\n        animationType,\n        config,\n        poster\n      }\n    }\n  }\n}": PROJECT_QUERYResult;
   }
 }

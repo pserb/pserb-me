@@ -24,6 +24,12 @@ export const projectType = defineType({
 			}
 		}),
 		defineField({
+			name: "thumbnailAnimation",
+			title: "Thumbnail Animation",
+			type: "reference",
+			to: [{ type: "asciiAnimation" }],
+		}),
+		defineField({
 			name: "body",
 			type: "blockContent",
 		}),

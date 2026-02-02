@@ -1,5 +1,6 @@
 import { PortableTextReactComponents } from "next-sanity";
 import CodeBlock from "./CodeBlock";
+import { AsciiAnimation } from "./ascii-animation";
 import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
@@ -11,6 +12,13 @@ export const portableTextComponents: Partial<PortableTextReactComponents> = {
 	types: {
 		code: ({ value }: any) => {
 			return <CodeBlock value={value} />;
+		},
+		asciiAnimationEmbed: ({ value }: any) => {
+			return (
+				<div className="my-6">
+					<AsciiAnimation animation={value?.animation} size={value?.size} responsive />
+				</div>
+			);
 		},
 		image: ({ value }: any) => {
 			const rawUrl = isSanityGif(value)

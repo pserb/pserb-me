@@ -14,7 +14,26 @@ const PROJECTS_QUERY = groq`*[_type == "projects"][0]{
     title,
     slug,
     thumbnail,
-    body
+    thumbnailAnimation->{
+      _id,
+      title,
+      animationType,
+      config,
+      poster
+    },
+    body[]{
+      ...,
+      _type == "asciiAnimationEmbed" => {
+        ...,
+        animation->{
+          _id,
+          title,
+          animationType,
+          config,
+          poster
+        }
+      }
+    }
   }
 }`;
 

@@ -5,7 +5,32 @@ import ProjectPageComponent from "@/components/page/ProjectPageComponent";
 import { Metadata } from "next";
 import { customMetadata } from "@/components/utils/metadata";
 
-const PROJECT_QUERY = groq`*[_type == "project" && slug.current == $slug][0]`;
+const PROJECT_QUERY = groq`*[_type == "project" && slug.current == $slug][0]{
+  _id,
+  title,
+  slug,
+  thumbnail,
+  thumbnailAnimation->{
+    _id,
+    title,
+    animationType,
+    config,
+    poster
+  },
+  body[]{
+    ...,
+    _type == "asciiAnimationEmbed" => {
+      ...,
+      animation->{
+        _id,
+        title,
+        animationType,
+        config,
+        poster
+      }
+    }
+  }
+}`;
 
 async function fetchProjectData(slug: string): Promise<PROJECT_QUERYResult> {
 	const { data } = await sanityFetch({ query: PROJECT_QUERY, params: { slug } });

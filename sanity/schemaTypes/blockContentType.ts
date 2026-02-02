@@ -71,6 +71,9 @@ export const blockContentType = defineType({
             ],
         }),
         defineArrayMember({
+            type: 'asciiAnimationEmbed',
+        }),
+        defineArrayMember({
             type: 'code',
         }),
     ],

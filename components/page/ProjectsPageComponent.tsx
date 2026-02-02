@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation";
 import { NextSanityImage } from "../utils/sanity-image";
 import Card from "../ui/card";
 import { ArrowUpRight } from "lucide-react";
+import { AsciiAnimation } from "../utils/ascii-animation";
 
 // Helper function to truncate PortableText content
 function truncatePortableText(portableText: any[], wordLimit: number): any[] {
@@ -81,13 +82,25 @@ export default function ProjectsPageComponent({ projects }: { projects: PROJECTS
 														</div>
 													)}
 												</div>
-												{project.thumbnail && (
-													<NextSanityImage
-														className="w-full max-w-[180px] aspect-square md:w-[180px] md:max-w-none rounded border border-border group-hover:border-background/30"
-														src={project.thumbnail! as any}
-														width={300}
-														height={300}
-													/>
+												{project.thumbnailAnimation ? (
+													<div className="w-full max-w-[260px] md:w-[240px] md:max-w-none flex justify-center md:justify-end">
+														<AsciiAnimation
+															animation={project.thumbnailAnimation as any}
+															maxHeight={200}
+															className="rounded border border-border group-hover:border-background/30"
+															size="small"
+															responsive
+														/>
+													</div>
+												) : (
+													project.thumbnail && (
+														<NextSanityImage
+															className="w-full max-w-[180px] aspect-square md:w-[180px] md:max-w-none rounded border border-border group-hover:border-background/30"
+															src={project.thumbnail! as any}
+															width={180}
+															height={180}
+														/>
+													)
 												)}
 											</div>
 										</li>
