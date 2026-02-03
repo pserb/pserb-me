@@ -436,7 +436,6 @@ export async function GET(request: Request) {
 	const fontSize = baseFontSize * scale;
 
 	const speed = config.speed ?? 1;
-	const rotationPeriod = config.rotationPeriod ?? 16;
 	const chip = {
 		size: config.chip?.size ?? 1.8,
 		thickness: config.chip?.thickness ?? 0.1,
