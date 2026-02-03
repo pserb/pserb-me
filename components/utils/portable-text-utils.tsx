@@ -16,7 +16,12 @@ export const portableTextComponents: Partial<PortableTextReactComponents> = {
 		asciiAnimationEmbed: ({ value }: any) => {
 			return (
 				<div className="my-6">
-					<AsciiAnimation animation={value?.animation} size={value?.size} responsive />
+					<AsciiAnimation
+						animation={value?.animation}
+						size={value?.size}
+						responsive
+						showControls
+					/>
 				</div>
 			);
 		},

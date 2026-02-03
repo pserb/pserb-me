@@ -17,7 +17,10 @@ export function customMetadata({
 }: MetadataProps): Metadata {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.pserb.me'
   const fullPath = `${baseUrl}${path}`
-  const imageUrl = image ? `${baseUrl}${image}` : `${baseUrl}/api/og?title=${encodeURIComponent(ogtitle)}`
+  const isAbsoluteImage = image?.startsWith('http://') || image?.startsWith('https://')
+  const imageUrl = image
+    ? (isAbsoluteImage ? image : `${baseUrl}${image}`)
+    : `${baseUrl}/api/og?title=${encodeURIComponent(ogtitle)}`
 
   return {
     metadataBase: new URL(baseUrl),

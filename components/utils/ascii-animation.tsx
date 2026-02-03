@@ -68,6 +68,7 @@ type ChipConfig = Required<NonNullable<AsciiAnimationConfig["chip"]>>;
 	maxWidth?: number;
 	maxHeight?: number;
 	responsive?: boolean;
+	showControls?: boolean;
  };
  
 //  const LUMINANCE_RAMP = " ·:;+*?X#%@";
@@ -376,12 +377,18 @@ export function AsciiAnimation({
 	maxWidth,
 	maxHeight,
 	responsive = false,
+	showControls = false,
 }: AsciiAnimationProps) {
 	const containerRef = useRef<HTMLDivElement | null>(null);
  	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const [mounted, setMounted] = useState(false);
 	const [isDark, setIsDark] = useState(true);
 	const [containerWidth, setContainerWidth] = useState<number | null>(null);
+	const [isPaused, setIsPaused] = useState(false);
+	const frameIdRef = useRef<number | null>(null);
+	const startTimeRef = useRef<number | null>(null);
+	const elapsedOffsetRef = useRef(0);
+	const lastElapsedRef = useRef(0);
  
  	const config = useMemo(() => animation?.config ?? {}, [animation?.config]);
  	const animationType = animation?.animationType ?? "ascii-chip";
@@ -415,9 +422,16 @@ export function AsciiAnimation({
 	}, [mounted]);
 
 	useEffect(() => {
+		elapsedOffsetRef.current = 0;
+		lastElapsedRef.current = 0;
+		startTimeRef.current = null;
+	}, [animationType, config, containerWidth, isDark, maxHeight, maxWidth, preset, responsive, size]);
+
+	useEffect(() => {
  		const canvas = canvasRef.current;
  		if (!canvas) return;
  		if (animationType !== "ascii-chip") return;
+		if (isPaused) return;
  
  		const columns = config.grid?.columns ?? 120;
  		const rows = config.grid?.rows ?? 60;
@@ -497,11 +511,15 @@ export function AsciiAnimation({
  			cameraDistance: config.chip?.cameraDistance ?? 3.5,
  		};
  
- 		let frameId: number;
- 		const start = performance.now();
+		let frameId: number;
  
  		const tick = (now: number) => {
- 			const elapsed = ((now - start) / 1000) * speed;
+			if (startTimeRef.current === null) {
+				startTimeRef.current = now;
+			}
+			const elapsed =
+				((now - startTimeRef.current) / 1000) * speed + elapsedOffsetRef.current;
+			lastElapsedRef.current = elapsed;
  			const A = (elapsed / rotationPeriod) * Math.PI * 2;
  			const B = Math.sin(A * 2) * 0.35;
  
@@ -520,15 +538,28 @@ export function AsciiAnimation({
 				lightModeBoost: !isDark,
  			});
  
- 			frameId = window.requestAnimationFrame(tick);
+			frameId = window.requestAnimationFrame(tick);
+			frameIdRef.current = frameId;
  		};
  
  		frameId = window.requestAnimationFrame(tick);
+		frameIdRef.current = frameId;
  
  		return () => {
  			window.cancelAnimationFrame(frameId);
  		};
-	}, [animationType, config, containerWidth, isDark, maxHeight, maxWidth, preset, responsive, size]);
+	}, [
+		animationType,
+		config,
+		containerWidth,
+		isDark,
+		isPaused,
+		maxHeight,
+		maxWidth,
+		preset,
+		responsive,
+		size,
+	]);
  
  	if (!animation) return null;
  
@@ -545,13 +576,59 @@ export function AsciiAnimation({
  		);
  	}
  
+	const handleTogglePause = () => {
+		setIsPaused((prev) => {
+			if (!prev) {
+				elapsedOffsetRef.current = lastElapsedRef.current;
+				if (frameIdRef.current !== null) {
+					window.cancelAnimationFrame(frameIdRef.current);
+				}
+				return true;
+			}
+			startTimeRef.current = null;
+			return false;
+		});
+	};
+
+	const pauseButton = showControls ? (
+		<button
+			type="button"
+			onClick={handleTogglePause}
+			aria-pressed={isPaused}
+			className={cn(
+				"pointer-events-auto absolute bottom-2 right-2 z-10 rounded border border-border",
+				"bg-background/85 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
+				"text-muted-foreground shadow-sm opacity-0 transition-opacity duration-200",
+				"group-hover:opacity-100 focus-visible:opacity-100 hover:text-foreground",
+				"focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+				"backdrop-blur",
+			)}
+		>
+			{isPaused ? "Play" : "Pause"}
+		</button>
+	) : null;
+
 	if (responsive) {
 		return (
 			<div ref={containerRef} className="w-full flex justify-center">
+				<div className={cn("relative inline-block", showControls && "group")}>
+					{pauseButton}
+					<canvas ref={canvasRef} className={cn("block rounded border border-border bg-black", className)} />
+				</div>
+			</div>
+		);
+	}
+
+	if (showControls) {
+		return (
+			<div className="relative inline-block group">
+				{pauseButton}
 				<canvas ref={canvasRef} className={cn("block rounded border border-border bg-black", className)} />
 			</div>
 		);
 	}
 
- 	return <canvas ref={canvasRef} className={cn("block rounded border border-border bg-black", className)} />;
+	return (
+		<canvas ref={canvasRef} className={cn("block rounded border border-border bg-black", className)} />
+	);
  }
