@@ -18,6 +18,16 @@ function escapeXml(value: string) {
 		.replaceAll("'", "&apos;");
 }
 
+function toBase64(data: Uint8Array) {
+	let binary = "";
+	const chunkSize = 0x8000;
+	for (let i = 0; i < data.length; i += chunkSize) {
+		const chunk = data.subarray(i, i + chunkSize);
+		binary += String.fromCharCode(...chunk);
+	}
+	return btoa(binary);
+}
+
 function animatedSvg({ title, thumb }: { title: string; thumb: string }) {
 	const safeTitle = escapeXml(title || "");
 	const safeThumb = escapeXml(thumb || "");
@@ -51,7 +61,11 @@ export async function GET(request: Request) {
 	const animated = searchParams.get("animated") === "1";
 
 	if (animated && thumb) {
-		const svg = animatedSvg({ title, thumb });
+		const response = await fetch(thumb);
+		const contentType = response.headers.get("content-type") || "image/gif";
+		const bytes = new Uint8Array(await response.arrayBuffer());
+		const dataUri = `data:${contentType};base64,${toBase64(bytes)}`;
+		const svg = animatedSvg({ title, thumb: dataUri });
 		return new Response(svg, {
 			headers: {
 				"content-type": "image/svg+xml; charset=utf-8",

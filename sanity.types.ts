@@ -800,6 +800,61 @@ export type PROJECTS_QUERYResult = {
   }> | null;
 } | null;
 
+// Source: ./app/api/ascii/thumbnail/route.ts
+// Variable: ASCII_QUERY
+// Query: *[_type == "asciiAnimation" && _id == $id][0]{  _id,  animationType,  preset,  config}
+export type ASCII_QUERYResult = {
+  _id: string;
+  animationType: "ascii-chip";
+  preset: "chip-dark" | "chip-default" | "chip-light" | null;
+  config: {
+    speed?: number;
+    rotationPeriod?: number;
+    grid?: {
+      columns?: number;
+      rows?: number;
+    };
+    character?: {
+      width?: number;
+      height?: number;
+      fontSize?: number;
+      fontFamily?: string;
+    };
+    colors?: {
+      cyan?: string;
+      teal?: string;
+      gold?: string;
+      edge?: string;
+      substrate?: string;
+      background?: string;
+    };
+    themeColors?: {
+      dark?: {
+        cyan?: string;
+        teal?: string;
+        gold?: string;
+        edge?: string;
+        substrate?: string;
+        background?: string;
+      };
+      light?: {
+        cyan?: string;
+        teal?: string;
+        gold?: string;
+        edge?: string;
+        substrate?: string;
+        background?: string;
+      };
+    };
+    chip?: {
+      size?: number;
+      thickness?: number;
+      projectionScale?: number;
+      cameraDistance?: number;
+    };
+  } | null;
+} | null;
+
 // Source: ./app/sitemap.ts
 // Variable: PROJECTS_QUERY_SITEMAP
 // Query: *[_type == "projects"][0]{    title,    body,    projects[]->{      _type,      _id,      title,      slug,      thumbnail,      body    }  }
@@ -852,6 +907,7 @@ declare module "@sanity/client" {
     "*[_type == \"home\"][0]{\n  cta,\n  title,\n  body,\n}": HOME_QUERYResult;
     "*[_type == \"project\" && slug.current == $slug][0]{\n  _id,\n  title,\n  slug,\n  thumbnail,\n  thumbnailAnimation->{\n    _id,\n    title,\n    animationType,\n    config,\n    poster\n  },\n  body[]{\n    ...,\n    _type == \"asciiAnimationEmbed\" => {\n      ...,\n      animation->{\n        _id,\n        title,\n        animationType,\n        config,\n        poster\n      }\n    }\n  }\n}": PROJECT_QUERYResult;
     "*[_type == \"projects\"][0]{\n  title,\n  body,\n  projects[]->{\n    _type,\n    _id,\n    title,\n    slug,\n    thumbnail,\n    thumbnailAnimation->{\n      _id,\n      title,\n      animationType,\n      config,\n      poster\n    },\n    body[]{\n      ...,\n      _type == \"asciiAnimationEmbed\" => {\n        ...,\n        animation->{\n          _id,\n          title,\n          animationType,\n          config,\n          poster\n        }\n      }\n    }\n  }\n}": PROJECTS_QUERYResult;
+    "*[_type == \"asciiAnimation\" && _id == $id][0]{\n  _id,\n  animationType,\n  preset,\n  config\n}": ASCII_QUERYResult;
     "*[_type == \"projects\"][0]{\n    title,\n    body,\n    projects[]->{\n      _type,\n      _id,\n      title,\n      slug,\n      thumbnail,\n      body\n    }\n  }": PROJECTS_QUERY_SITEMAPResult;
   }
 }

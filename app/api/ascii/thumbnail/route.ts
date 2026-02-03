@@ -436,6 +436,8 @@ export async function GET(request: Request) {
 	const fontSize = baseFontSize * scale;
 
 	const speed = config.speed ?? 1;
+	var rotationPeriod = config.rotationPeriod ?? 24;
+	rotationPeriod += 12;	
 	const chip = {
 		size: config.chip?.size ?? 1.8,
 		thickness: config.chip?.thickness ?? 0.1,
@@ -443,13 +445,14 @@ export async function GET(request: Request) {
 		cameraDistance: config.chip?.cameraDistance ?? 3.5,
 	};
 
-	const frameCount = 12;
 	const fps = 12;
+	const totalSeconds = Math.max(1, rotationPeriod / Math.max(0.25, speed));
+	const frameCount = Math.min(60, Math.max(8, Math.round(totalSeconds * fps)));
 	const delay = Math.round(1000 / fps);
 	const gif = GIFEncoder();
 
 	for (let i = 0; i < frameCount; i += 1) {
-		const A = ((i / frameCount) * Math.PI * 2) * speed;
+		const A = (i / frameCount) * Math.PI * 2;
 		const B = Math.sin(A * 2) * 0.35;
 		const { buf, col } = renderAsciiChipFrameData({
 			columns,
