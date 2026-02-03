@@ -5,9 +5,9 @@ export const runtime = "edge";
 const WIDTH = 1200;
 const HEIGHT = 630;
 const PADDING = 64;
-const THUMB_SIZE = 520;
+const THUMB_SIZE = 680;
 const THUMB_PADDING = 8;
-const TEXT_GAP = 48;
+const TEXT_GAP = 32;
 
 function escapeXml(value: string) {
 	return value
@@ -20,26 +20,27 @@ function escapeXml(value: string) {
 
 function animatedSvg({ title, thumb }: { title: string; thumb: string }) {
 	const safeTitle = escapeXml(title || "");
+	const safeThumb = escapeXml(thumb || "");
 	const thumbBoxX = WIDTH - PADDING - THUMB_SIZE;
 	const thumbBoxY = (HEIGHT - THUMB_SIZE) / 2;
 	const textMaxWidth = WIDTH - PADDING * 2 - THUMB_SIZE - TEXT_GAP;
 	const imageSize = THUMB_SIZE - THUMB_PADDING * 2;
 
 	return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">
   <rect width="100%" height="100%" fill="#000000" />
   <text x="${PADDING + 44}" y="52" fill="#f3f4f6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" font-weight="800">pserb.me</text>
   <text x="${PADDING}" y="54" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="32">🐧</text>
 
-  <text x="${PADDING}" y="210" fill="#f3f4f6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="64" font-weight="800">Paul Serbanescu</text>
-  <foreignObject x="${PADDING}" y="246" width="${textMaxWidth}" height="260">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="color:#16a34a;font-size:64px;font-weight:800;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.08;letter-spacing:-0.01em;">
+  <text x="${PADDING}" y="184" fill="#f3f4f6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="56" font-weight="800">Paul Serbanescu</text>
+  <foreignObject x="${PADDING}" y="216" width="${textMaxWidth}" height="320">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="color:#16a34a;font-size:56px;font-weight:800;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.12;letter-spacing:-0.01em;">
       ${safeTitle}
     </div>
   </foreignObject>
 
   <rect x="${thumbBoxX}" y="${thumbBoxY}" width="${THUMB_SIZE}" height="${THUMB_SIZE}" rx="4" fill="rgba(0,0,0,0.2)" stroke="#2a2a2a" stroke-width="1" />
-  <image href="${thumb}" x="${thumbBoxX + THUMB_PADDING}" y="${thumbBoxY + THUMB_PADDING}" width="${imageSize}" height="${imageSize}" preserveAspectRatio="xMidYMid meet" />
+  <image href="${safeThumb}" xlink:href="${safeThumb}" x="${thumbBoxX + THUMB_PADDING}" y="${thumbBoxY + THUMB_PADDING}" width="${imageSize}" height="${imageSize}" preserveAspectRatio="xMidYMid meet" />
 </svg>`;
 }
 

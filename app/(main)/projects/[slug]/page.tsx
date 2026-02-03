@@ -50,7 +50,7 @@ function resolveProjectOgImage(
 	const encodedTitle = encodeURIComponent(ogTitle);
 
 	if (project?.thumbnailAnimation) {
-		const asciiGifUrl = `${baseUrl}/api/ascii/thumbnail`;
+		const asciiGifUrl = `${baseUrl}/api/ascii/thumbnail?id=${project.thumbnailAnimation._id}`;
 		return `${baseUrl}/api/og?animated=1&thumb=${encodeURIComponent(asciiGifUrl)}&title=${encodedTitle}`;
 	}
 
